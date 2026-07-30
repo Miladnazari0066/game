@@ -2031,6 +2031,27 @@ async function renderBoard(){const ov=$('boardOv');
  const mb=$('gMyBest');if(mb)mb.textContent=fmt(GH_GBEST);
  if(window.gsap){gsap.fromTo('.g-pl',{y:26,opacity:0},{y:0,opacity:1,stagger:0.09,duration:0.42,ease:'back.out(2)'});gsap.fromTo('.g-row',{x:-20,opacity:0},{x:0,opacity:1,stagger:0.04,duration:0.32,ease:'power2.out'});}}
 /* ═══════════════ پایان بلوک ═══════════════ */
+  /* ═══════════════ صفحه‌ی خوش‌آمد / انتخاب اسم (یک‌بار) ═══════════════ */
+const OB_T={
+ fa:{welcome:'به کهکشان خوش آمدی',kicker:'ثبت خلبان',
+   id_found:'اسم تلگرامت را پیدا کردیم',id_none:'اسم تلگرام پیدا نشد — یکی بنویس',
+   current:'اسم فعلی تو',with_this:'با این اسم در جدول جهانی رقابت می‌کنی:',
+   keep:'✓ همین اسم تلگرامم',custom:'✎ اسم دلخواه می‌خواهم',
+   custom_q:'اسمی که دوست داری بنویس',ph:'مثلاً: کاپیتان رعد',
+   confirm:'تأیید و ورود ▶',back:'◀ بازگشت',note:'بعداً از منو هم می‌توانی عوضش کنی',
+   err:'اسم نمی‌تواند خالی باشد',fallback:'خلبان',edit:'✎ اسم'},
+ en:{welcome:'Welcome to the Galaxy',kicker:'PILOT REGISTRATION',
+   id_found:'We found your Telegram name',id_none:'No Telegram name found — type one',
+   current:'Your current name',with_this:'You will compete on the global board as:',
+   keep:'✓ Keep my Telegram name',custom:'✎ I want a custom name',
+   custom_q:'Type the name you like',ph:'e.g. Captain Raid',
+   confirm:'CONFIRM & ENTER ▶',back:'◀ BACK',note:'You can change it later from the menu',
+   err:'Name cannot be empty',fallback:'Pilot',edit:'✎ NAME'}
+};
+const obT=k=>(OB_T[lang]||OB_T.fa)[k];
+let obTgFirst='';
+try{const _ou=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;obTgFirst=(_ou&&(_ou.first_name||'').trim())||'';}catch(e){}
+function obSan(s){return String(s||'').replace(/[
   (async function boot(){
  if(!window.PIXI){$('errOv').classList.remove('hidden');return;}
  try{
@@ -2056,6 +2077,7 @@ async function renderBoard(){const ov=$('boardOv');
   bindInput();
   player.x=player.tx=W/2;player.y=player.ty=H-110;
   showMenu();
+     if(!store.get('gh_named',false)) runOnboard();
   app.ticker.add(tk=>frame(Math.min(0.033,tk.deltaMS/1000)));
  }catch(err){console.error(err);$('errOv').classList.remove('hidden');}
 })();
