@@ -97,7 +97,6 @@ body.fa .display{font-family:'Lalezar','Orbitron',sans-serif;letter-spacing:0}
 .btn.green{--c:var(--green);color:#06281a;background:linear-gradient(180deg,#63f7bb,#22c97f);border-color:#8dffd0}
 .btnrow{display:flex;gap:10px}
 .btnrow .btn{flex:1}
-/* --- پرونده‌ی چالش روزانه --- */
 #dailyCard{position:relative;width:min(92vw,400px);display:flex;align-items:center;gap:14px;background:linear-gradient(160deg,#181006f0,#0b0804f0);border:1px solid #4d3a17;padding:16px;cursor:pointer;transition:.2s;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
 #dailyCard:hover{transform:translateY(-3px);box-shadow:0 12px 28px -10px rgba(255,180,58,.5);border-color:var(--amber)}
 #dailyCard:active{transform:scale(.98)}
@@ -109,7 +108,6 @@ body.fa .display{font-family:'Lalezar','Orbitron',sans-serif;letter-spacing:0}
 .d-info em{font-style:normal;font-size:11px;color:var(--dim)}
 .d-info em b{color:var(--amber2);font-size:12px}
 .d-timer{font-size:19px;font-weight:900;color:var(--cyan);text-shadow:0 0 12px rgba(55,224,255,.4);font-variant-numeric:tabular-nums;direction:ltr}
-/* --- جدول امتیازات --- */
 #boardOv{justify-content:flex-start;padding-top:calc(64px + env(safe-area-inset-top))}
 #podium{display:flex;align-items:flex-end;gap:10px;justify-content:center;width:min(94vw,420px)}
 .plaque{flex:1;text-align:center;padding:12px 8px;background:linear-gradient(160deg,#0c1c2af0,#081019f0);border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px);transition:transform .15s}
@@ -205,7 +203,7 @@ body.fa #introLevel{letter-spacing:.05em}
     <div class="hud-score"><span id="score" class="display">0</span><span id="combo" class="display"></span><span id="weapChip">⚡۱</span>
       <span id="specChip" class="hidden"><i id="specIco">⚡</i><span class="sbar"><i id="specFill"></i></span></span></div>
     <div class="hud-mid"><span id="levelName"></span><div class="prog"><i id="progFill"></i></div>
-      <div class="mid-chips"><span class="mchip" id="hudCoins">🪙 ۰</span><span class="mchip cy hidden" id="multChip">×۱</span></div></div>
+      <div class="mid-chips"><span class="mchip" id="hudCoins">🪙 </span><span class="mchip cy hidden" id="multChip">×۱</span></div></div>
     <div class="hud-right"><span class="pips" id="pips"></span><button id="pauseBtn" aria-label="pause">❚❚</button></div>
   </div>
   <div id="bossBar"><span id="bossName" class="display"></span><div class="bbar"><i id="bossFill"></i></div></div>
@@ -346,7 +344,7 @@ const I18N={
   today:'امروز',daily_t:'چالش روزانه',best_today:'بهترین امروز',d_bossrush:'☠ دو غول پشت‌سرهم!',
   mod_glass:'سپر: فقط ۱',mod_nobomb:'بدون بمب',mod_frenzy:'دشمنان ×۱.۴',mod_fortune:'سکه ×۲',mod_overdrive:'سلاح حداکثر',mod_storm:'آتش شدید',
   board_t:'جدول هفتگی',board_week:'هفته',board_reset:'ریست',board_submit:'ثبت امتیاز من در تلگرام 🚀',
-  board_you:'شما',daily_done:'در جدول هفتگی ثبت شد ✓',
+  board_you:'شما',daily_done:'در جدول جهانی ثبت شد ✓',
   err_title:'خطا در بارگذاری',err_txt:'کتابخانه PixiJS بارگذاری نشد. اتصال اینترنت را بررسی کن یا فایل‌ها را لوکال قرار بده.',err_btn:'تلاش دوباره'},
  en:{title:'GALAXY HUNTER II',tag:'The final battle in the heart of the stars',sys:'WEAPON SYSTEMS ONLINE',start:'🚀 START MISSION',
   levels:'LEVELS',hangar:'HANGAR 🔧',best:'HIGH SCORE',coins:'COINS',sound:'SOUND',on:'ON',off:'OFF',lang_btn:'فارسی',
@@ -371,7 +369,7 @@ const I18N={
   today:'TODAY',daily_t:'DAILY CHALLENGE',best_today:"TODAY'S BEST",d_bossrush:'☠ DOUBLE BOSS RUSH!',
   mod_glass:'SHIELD: 1',mod_nobomb:'NO BOMBS',mod_frenzy:'ENEMIES ×1.4',mod_fortune:'COINS ×2',mod_overdrive:'MAX WEAPON',mod_storm:'HEAVY FIRE',
   board_t:'WEEKLY BOARD',board_week:'WEEK',board_reset:'RESET',board_submit:'SUBMIT MY SCORE 🚀',
-  board_you:'YOU',daily_done:'SAVED TO WEEKLY BOARD ✓',
+  board_you:'YOU',daily_done:'SAVED TO GLOBAL BOARD ✓',
   err_title:'LOAD ERROR',err_txt:'PixiJS failed to load. Check your connection or bundle the libraries locally.',err_btn:'RETRY'}
 };
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
@@ -392,7 +390,7 @@ const maxShield=()=>3+upg.armor,startWeapon=()=>1+upg.weapon,startBombs=()=>2+up
 function cloudSave(){if(!tg||!tg.CloudStorage)return;
  try{tg.CloudStorage.setItem('gh2_save',JSON.stringify({coins,upg,best,unlocked,endUnlocked}),()=>{});}catch(e){}}
 
-/* ================= جدول هفتگی ================= */
+/* ================= جدول هفتگی (محلی) ================= */
 function strHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function weekKey(){const d=new Date(),j=new Date(d.getFullYear(),0,1);
  const wk=Math.ceil((((d-j)/86400000)+j.getDay()+1)/7);return d.getFullYear()+'-W'+wk;}
@@ -413,12 +411,11 @@ if(board.length===0)seedBoard();
 function tgName(){try{const u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;
  if(u)return u.first_name||'Pilot';}catch(e){}
  return lang==='fa'?'شما':'You';}
+/* submitScore و renderBoard در بلوک لیدربورد جهانی (پایین) override می‌شوند */
 function submitScore(sc,mode){if(sc<=0)return;
  const ex=board.find(b=>b.me);
- if(ex){if(sc>ex.s){ex.s=sc;ex.m=mode;}}
- else board.push({n:tgName(),s:sc,m:mode,me:true});
- board.sort((a,b)=>b.s-a.s);board=board.slice(0,50);
- store.set('gh_board',board);}
+ if(ex){if(sc>ex.s){ex.s=sc;ex.m=mode;}}else board.push({n:tgName(),s:sc,m:mode,me:true});
+ board.sort((a,b)=>b.s-a.s);board=board.slice(0,50);store.set('gh_board',board);}
 const modeIcon=m=>m==='daily'?'🎯':(m==='endless'?'∞':fmt((m||0)+1));
 function weekResetStr(){const nd=new Date(),nx=new Date(nd);
  const diff=((7-nd.getDay())%7)||7;
@@ -435,7 +432,7 @@ function renderBoard(){
  const top=board.slice(0,3);
  for(const idx of[1,0,2]){const e=top[idx];
   const d=document.createElement('div');d.className='plaque p'+(idx+1);
-  d.innerHTML='<span class="medal">'+['🥇','🥈','🥉'][idx]+'</span><b>'+(e?(e.me?tgName():e.n):'—')+'</b><i class="display">'+(e?fmt(e.s):'')+'</i>';
+  d.innerHTML='<span class="medal">'+['🥇','','🥉'][idx]+'</span><b>'+(e?(e.me?tgName():e.n):'—')+'</b><i class="display">'+(e?fmt(e.s):'')+'</i>';
   pod.appendChild(d);
   if(e)countUp(d.querySelector('i'),e.s);}
  const list=$('boardList');list.innerHTML='';
@@ -1951,20 +1948,20 @@ $('shareBtn2').addEventListener('click',shareScore);
 $('submitBtn').addEventListener('click',()=>{if(tg&&tg.sendData){
  try{tg.sendData(JSON.stringify({app:'galaxy_hunter_2',type:'score',score:score,level:levelIndex+1,coins:runCoins}));}catch(e){}}});
 
-/* ================= راه‌اندازی ================= */
+/* ================= راه‌اندازی اولیه ================= */
 applyLang();
-/* ═══════════════ لیدربورد جهانی — کلیدها پر شده، دست نزن ═══════════════ */
-const SUPABASE_URL = 'https://femzookrzspnqymhuxcf.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_okmNeoF7D53fInXjB1q7lg_eEOTGhL2';
 
-let GH_UID = localStorage.getItem('gh_uid');
+/* ═══════════════ لیدربورد جهانی (Supabase) — کلیدها پر شده ═══════════════ */
+const SUPABASE_URL='https://femzookrzspnqymhuxcf.supabase.co';
+const SUPABASE_KEY='sb_publishable_okmNeoF7D53fInXjB1q7lg_eEOTGhL2';
+let GH_UID=localStorage.getItem('gh_uid');
 if(!GH_UID){GH_UID='p_'+Math.random().toString(36).slice(2,10)+Date.now().toString(36);localStorage.setItem('gh_uid',GH_UID);}
-let GH_NAME = localStorage.getItem('gh_name');
+let GH_NAME=localStorage.getItem('gh_name');
 if(!GH_NAME){try{const _u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;GH_NAME=(_u&&(_u.first_name||'').trim())||'';}catch(e){}GH_NAME=GH_NAME||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);}
-let GH_GBEST = parseInt(localStorage.getItem('gh_gbest')||'0',10)||0;
-const GH_OK = SUPABASE_URL.indexOf('abcdefgh')<0 && SUPABASE_KEY.length>12;
-const GH_H = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'};
-const GH_L = (fa,en)=>lang==='fa'?fa:en;
+let GH_GBEST=parseInt(localStorage.getItem('gh_gbest')||'0',10)||0;
+const GH_OK=SUPABASE_URL.indexOf('abcdefgh')<0&&SUPABASE_KEY.length>12;
+const GH_H={'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'};
+const GH_L=(fa,en)=>lang==='fa'?fa:en;
 function GH_esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 (function(){const s=document.createElement('style');s.textContent=`
 #boardOv{justify-content:flex-start;padding-top:calc(64px + env(safe-area-inset-top))}
@@ -1995,11 +1992,18 @@ function GH_esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;
 .g-live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 1.4s infinite}
 `;document.head.appendChild(s);})();
 async function GH_fetch(){if(!GH_OK)return null;
- try{const r=await fetch(SUPABASE_URL+'/rest/v1/leaderboard?select=user_id,name,score&order=score.desc&limit=60',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
+ try{const r=await fetch(SUPABASE_URL+'/rest/v1/leaderboard?select=user_id,name,score&order=score.desc&limit=60',
+   {headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
   if(!r.ok)throw 0;return await r.json();}catch(e){return null;}}
-async function GH_push(sc,mode){if(!GH_OK||sc<=0||sc<=GH_GBEST)return;
- GH_GBEST=sc;localStorage.setItem('gh_gbest',String(sc));
- try{await fetch(SUPABASE_URL+'/rest/v1/leaderboard',{method:'POST',headers:GH_H,body:JSON.stringify({user_id:GH_UID,name:GH_NAME,score:sc,mode:mode||'lvl'})});}catch(e){}}
+async function GH_push(sc,mode){if(!GH_OK||sc<=0)return;
+ let serverBest=0;
+ try{const r=await fetch(SUPABASE_URL+'/rest/v1/leaderboard?user_id=eq.'+GH_UID+'&select=score',
+   {headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
+  if(r.ok){const a=await r.json();serverBest=(a[0]&&a[0].score)||0;}}catch(e){}
+ if(sc<=serverBest&&sc<=GH_GBEST)return;
+ GH_GBEST=Math.max(sc,GH_GBEST);localStorage.setItem('gh_gbest',String(GH_GBEST));
+ try{await fetch(SUPABASE_URL+'/rest/v1/leaderboard',{method:'POST',headers:GH_H,
+   body:JSON.stringify({user_id:GH_UID,name:GH_NAME,score:sc,mode:mode||'lvl'})});}catch(e){}}
 function submitScore(sc,mode){if(sc<=0)return;
  const ex=board.find(b=>b.me);
  if(ex){if(sc>ex.s){ex.s=sc;ex.m=mode;}}else board.push({n:GH_NAME,s:sc,m:mode,me:true});
@@ -2030,8 +2034,9 @@ async function renderBoard(){const ov=$('boardOv');
  if(rows.length===0)list.innerHTML='<div class="g-empty">'+GH_L('هنوز کسی ثبت نکرده — اولین نفر باش!','No scores yet — be the first!')+'</div>';
  const mb=$('gMyBest');if(mb)mb.textContent=fmt(GH_GBEST);
  if(window.gsap){gsap.fromTo('.g-pl',{y:26,opacity:0},{y:0,opacity:1,stagger:0.09,duration:0.42,ease:'back.out(2)'});gsap.fromTo('.g-row',{x:-20,opacity:0},{x:0,opacity:1,stagger:0.04,duration:0.32,ease:'power2.out'});}}
-/* ═══════════════ پایان بلوک ═══════════════ */
-  /* ═══════════════ صفحه‌ی خوش‌آمد / انتخاب اسم (یک‌بار) ═══════════════ */
+/* ═══════════════ پایان لیدربورد جهانی ═══════════════ */
+
+/* ═══════════════ صفحه‌ی خوش‌آمد / انتخاب اسم (یک‌بار) ═══════════════ */
 const OB_T={
  fa:{welcome:'به کهکشان خوش آمدی',kicker:'ثبت خلبان',
    id_found:'اسم تلگرامت را پیدا کردیم',id_none:'اسم تلگرام پیدا نشد — یکی بنویس',
@@ -2051,8 +2056,166 @@ const OB_T={
 const obT=k=>(OB_T[lang]||OB_T.fa)[k];
 let obTgFirst='';
 try{const _ou=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;obTgFirst=(_ou&&(_ou.first_name||'').trim())||'';}catch(e){}
-function obSan(s){return String(s||'').replace(/[
-  (async function boot(){
+function obSan(s){return String(s||'').replace(/[\u0000-\u001f\u200b-\u200d\ufeff]/g,'').trim().slice(0,14);}
+function obSetName(n){n=obSan(n)||obT('fallback');
+ try{localStorage.setItem('gh_name',n);localStorage.setItem('gh_named','1');}catch(e){}
+ if(typeof GH_NAME!=='undefined'){try{GH_NAME=n;localStorage.setItem('gh_name',n);}catch(e){}}
+ return n;}
+(function buildOnboard(){
+ const st=document.createElement('style');st.textContent=`
+#onboard{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:22px;
+ background:radial-gradient(120% 90% at 50% 30%,#06121d 0%,#03080d 70%);transition:opacity .55s}
+#onboard.hidden{display:none}
+#onboard.out{opacity:0;pointer-events:none}
+#obSky{position:absolute;inset:0;z-index:0}
+.ob-vig{position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(120% 90% at 50% 40%,transparent 48%,rgba(2,6,10,.7) 100%)}
+.ob-scan{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.4;
+ background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px)}
+.ob-card{position:relative;z-index:3;width:min(92vw,400px);padding:34px 24px 24px;text-align:center;
+ background:linear-gradient(160deg,#0b1a28f5,#081019f5);border:1px solid var(--line);
+ clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+ animation:obRise .6s cubic-bezier(.2,.9,.3,1.15) both}
+.ob-card::before,.ob-card::after{content:'';position:absolute;width:20px;height:20px;border:2px solid var(--amber);z-index:4}
+.ob-card::before{top:-2px;right:-2px;border-bottom:0;border-left:0}
+.ob-card::after{bottom:-2px;left:-2px;border-top:0;border-right:0}
+.ob-sweep{position:absolute;left:0;right:0;height:30%;top:-40%;pointer-events:none;
+ background:linear-gradient(180deg,transparent,rgba(55,224,255,.07),transparent);animation:obSw 5s linear infinite}
+@keyframes obSw{to{top:120%}}
+.ob-badge{position:absolute;top:-34px;left:50%;transform:translateX(-50%);width:64px;height:64px;
+ display:grid;place-items:center;font-size:28px;color:var(--amber2);
+ background:linear-gradient(160deg,#12283a,#0a1622);border:1px solid #2a4a60;
+ clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+ box-shadow:0 0 30px rgba(55,224,255,.3);animation:obFl 5s ease-in-out infinite}
+@keyframes obFl{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}
+.ob-kicker{font-size:12px;font-weight:800;color:var(--cyan);letter-spacing:.22em;margin-bottom:6px}
+body.fa .ob-kicker{letter-spacing:.05em}
+.ob-title{font-size:clamp(26px,6.5vw,34px);font-weight:900;color:#fff;margin-bottom:16px;
+ text-shadow:2px 0 0 rgba(255,77,109,.4),-2px 0 0 rgba(55,224,255,.4)}
+.ob-idbox{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;text-align:start;
+ padding:13px 15px;margin:0 auto 14px;background:#0c1c2a;border:1px solid #2a4a60;
+ clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.ob-idbox::after{content:'';position:absolute;top:0;bottom:0;width:40%;
+ background:linear-gradient(100deg,transparent,rgba(255,255,255,.12),transparent);
+ animation:obSh 3.4s ease-in-out infinite}
+@keyframes obSh{0%{left:-45%}55%,100%{left:120%}}
+.ob-id-ico{font-size:24px;flex:none;filter:drop-shadow(0 0 8px rgba(55,224,255,.5))}
+.ob-id-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ob-id-txt small{font-size:11px;color:var(--dim);font-weight:700}
+.ob-id-txt b{font-size:19px;color:var(--amber2);font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ob-desc{font-size:13.5px;color:var(--dim);line-height:1.9;margin-bottom:16px}
+.ob-actions{display:flex;flex-direction:column;gap:10px}
+.ob-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ min-height:50px;padding:12px 20px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;
+ border:1px solid var(--cyan);color:var(--text);background:#0c2231;transition:transform .12s,box-shadow .2s,filter .2s;
+ clip-path:polygon(11px 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%,0 11px)}
+.ob-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px -8px var(--cyan);filter:brightness(1.1)}
+.ob-btn:active{transform:translateY(1px) scale(.97)}
+.ob-btn.primary{border-color:#ffcf7a;color:#241300;background:linear-gradient(180deg,#ffc65c,#ff9a1f);animation:obPu 2.4s ease-in-out infinite}
+.ob-btn.ghost{background:transparent}
+@keyframes obPu{0%,100%{box-shadow:0 0 0 0 rgba(255,180,58,.4)}50%{box-shadow:0 0 26px 2px rgba(255,180,58,.2)}}
+.ob-inputwrap{display:flex;flex-direction:column;gap:12px;animation:obRise .4s both}
+#obInput{width:100%;background:#06121c;border:1px solid var(--line);color:var(--text);
+ font-family:inherit;font-weight:800;font-size:18px;text-align:center;padding:14px;outline:none;transition:.2s}
+#obInput:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(55,224,255,.15)}
+#obInput.bad{border-color:var(--red);animation:obShk .4s}
+@keyframes obShk{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.ob-err{font-size:12px;color:var(--red);font-weight:800}
+.ob-inputbtns{display:flex;gap:10px}.ob-inputbtns .ob-btn{flex:1}
+.ob-note{margin-top:16px;font-size:11px;color:#4d6b7d}
+#obNameChip{pointer-events:auto}
+@keyframes obRise{from{opacity:0;transform:translateY(24px) scale(.97)}}
+`;document.head.appendChild(st);
+
+ const ov=document.createElement('div');ov.id='onboard';ov.className='hidden';
+ ov.innerHTML='<canvas id="obSky"></canvas><div class="ob-vig"></div><div class="ob-scan"></div>'+
+  '<div class="ob-card" id="obCard"><div class="ob-sweep"></div><div class="ob-badge">✦</div>'+
+  '<div class="ob-kicker" id="obKicker"></div><h2 class="ob-title display" id="obTitle"></h2>'+
+  '<div class="ob-idbox" id="obIdBox"><span class="ob-id-ico">🛰️</span>'+
+  '<div class="ob-id-txt"><small id="obIdLbl"></small><b id="obIdName" class="display"></b></div></div>'+
+  '<p class="ob-desc" id="obDesc"></p><div class="ob-actions" id="obActions"></div>'+
+  '<div class="ob-inputwrap hidden" id="obInputWrap"><input id="obInput" maxlength="14" dir="auto" autocomplete="off" spellcheck="false">'+
+  '<div class="ob-err hidden" id="obErr"></div><div class="ob-inputbtns">'+
+  '<button class="ob-btn ghost" id="obBack"></button><button class="ob-btn primary" id="obConfirm"></button></div></div>'+
+  '<div class="ob-note" id="obNote"></div></div>';
+ document.body.appendChild(ov);
+
+ const $=id=>document.getElementById(id);
+ let skyCv,skyX,stars=[],obAlive=false,raf=0;
+ function neb(c,x,y,r,col){const g=c.createRadialGradient(x,y,4,x,y,r);
+  g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(x-r,y-r,r*2,r*2);}
+ function sizeSky(){skyCv.width=innerWidth;skyCv.height=innerHeight;stars=[];
+  for(let i=0;i<120;i++)stars.push({x:Math.random()*skyCv.width,y:Math.random()*skyCv.height,
+   r:Math.random()*1.5+.4,tw:Math.random()*6.28,sp:3+Math.random()*12});}
+ function skyLoop(t){if(!obAlive)return;raf=requestAnimationFrame(skyLoop);const s=t/1000;
+  skyX.fillStyle='#03080d';skyX.fillRect(0,0,skyCv.width,skyCv.height);
+  skyX.globalCompositeOperation='lighter';
+  neb(skyX,skyCv.width*.25+Math.sin(s*.08)*40,skyCv.height*.3,300,'rgba(0,150,175,.10)');
+  neb(skyX,skyCv.width*.8,skyCv.height*.75+Math.cos(s*.07)*40,320,'rgba(255,150,60,.07)');
+  skyX.globalCompositeOperation='source-over';skyX.fillStyle='#9fe8ff';
+  for(const p of stars){p.y-=p.sp*.016;if(p.y<-2){p.y=skyCv.height+2;p.x=Math.random()*skyCv.width;}
+   skyX.globalAlpha=.3+Math.abs(Math.sin(s*1.4+p.tw))*.5;skyX.fillRect(p.x,p.y,p.r,p.r);}
+  skyX.globalAlpha=1;}
+ function startSky(){skyCv=$('obSky');skyX=skyCv.getContext('2d');sizeSky();obAlive=true;cancelAnimationFrame(raf);raf=requestAnimationFrame(skyLoop);}
+ function stopSky(){obAlive=false;cancelAnimationFrame(raf);}
+ addEventListener('resize',()=>{if(obAlive&&skyCv)sizeSky();});
+
+ function showIdentity(name,label,opts){
+  $('obIdBox').classList.remove('hidden');$('obInputWrap').classList.add('hidden');
+  $('obIdLbl').textContent=label;$('obIdName').textContent=name;
+  $('obDesc').textContent=obT('with_this');
+  const a=$('obActions');a.innerHTML='';a.classList.remove('hidden');
+  if(opts.tg){const b=document.createElement('button');b.className='ob-btn primary';b.textContent=obT('keep');
+   b.onclick=()=>finish(opts.tg,false);a.appendChild(b);}
+  const c=document.createElement('button');c.className='ob-btn'+(opts.tg?' ghost':' primary');
+  c.textContent=obT('custom');c.onclick=()=>showInput(opts.tg?name:'');a.appendChild(c);
+ }
+ function showInput(prefill){
+  $('obIdBox').classList.add('hidden');$('obActions').classList.add('hidden');
+  $('obDesc').textContent=obT('custom_q');
+  const w=$('obInputWrap');w.classList.remove('hidden');
+  const inp=$('obInput');inp.value=prefill||'';$('obErr').classList.add('hidden');inp.classList.remove('bad');
+  $('obBack').textContent=obT('back');$('obConfirm').textContent=obT('confirm');
+  setTimeout(()=>{inp.focus();try{hap('light');}catch(e){}},60);
+  $('obConfirm').onclick=()=>{const v=obSan(inp.value);
+   if(!v){inp.classList.add('bad');$('obErr').textContent=obT('err');$('obErr').classList.remove('hidden');
+    try{hapN('error');}catch(e){}setTimeout(()=>inp.classList.remove('bad'),420);return;}
+   finish(v,true);};
+  $('obBack').onclick=()=>{const cur=obSan(localStorage.getItem('gh_name'))||obTgFirst||obT('fallback');
+   showIdentity(cur,obT('current'),{tg:obTgFirst||null});};
+  inp.onkeydown=e=>{if(e.key==='Enter')$('obConfirm').click();};
+ }
+ function finish(name,celebrate){try{unlockAudio();}catch(e){}
+  const n=obSetName(name);try{SFX.power();}catch(e){}try{hap('medium');}catch(e){}
+  if(celebrate&&typeof confetti==='function'){try{confetti({particleCount:70,spread:70,origin:{y:.45},
+   colors:['#ffb43a','#37e0ff','#3ef0a5','#ff4d6d']});}catch(e){}}
+  ov.classList.add('out');stopSky();
+  setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('out');},560);
+ }
+ window.runOnboard=function(edit){
+  try{unlockAudio();}catch(e){}
+  $('obKicker').textContent=obT('kicker');$('obTitle').textContent=obT('welcome');
+  $('obNote').textContent=obT('note');
+  const card=$('obCard');card.style.animation='none';void card.offsetWidth;card.style.animation='';
+  ov.classList.remove('hidden','out');startSky();
+  const cur=obSan(localStorage.getItem('gh_name'));
+  if(edit){showIdentity(cur||obTgFirst||obT('fallback'),obT('current'),{tg:obTgFirst||null});}
+  else if(obTgFirst){showIdentity(obTgFirst,obT('id_found'),{tg:obTgFirst});}
+  else{$('obIdBox').classList.remove('hidden');$('obIdLbl').textContent=obT('id_none');
+   $('obIdName').textContent='—';showInput('');}
+ };
+
+ function injectChip(){const tb=document.querySelector('#menu .topbar');if(!tb||$('obNameChip'))return;
+  const b=document.createElement('button');b.className='chip';b.id='obNameChip';b.textContent=obT('edit');
+  b.onclick=()=>{try{SFX.click();}catch(e){}runOnboard(true);};
+  tb.insertBefore(b,tb.firstChild);
+  const lc=$('langChip');if(lc)lc.addEventListener('click',()=>setTimeout(()=>{b.textContent=obT('edit');},0));}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',injectChip);else injectChip();
+})();
+/* ═══════════════ پایان خوش‌آمد ═══════════════ */
+
+/* ═══════════════ بوت ═══════════════ */
+(async function boot(){
  if(!window.PIXI){$('errOv').classList.remove('hidden');return;}
  try{
   app=new PIXI.Application();
@@ -2077,7 +2240,7 @@ function obSan(s){return String(s||'').replace(/[
   bindInput();
   player.x=player.tx=W/2;player.y=player.ty=H-110;
   showMenu();
-     if(!store.get('gh_named',false)) runOnboard();
+  if(!store.get('gh_named',false))runOnboard();
   app.ticker.add(tk=>frame(Math.min(0.033,tk.deltaMS/1000)));
  }catch(err){console.error(err);$('errOv').classList.remove('hidden');}
 })();
