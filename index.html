@@ -1953,7 +1953,85 @@ $('submitBtn').addEventListener('click',()=>{if(tg&&tg.sendData){
 
 /* ================= راه‌اندازی ================= */
 applyLang();
-(async function boot(){
+/* ═══════════════ لیدربورد جهانی — کلیدها پر شده، دست نزن ═══════════════ */
+const SUPABASE_URL = 'https://femzookrzspnqymhuxcf.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_okmNeoF7D53fInXjB1q7lg_eEOTGhL2';
+
+let GH_UID = localStorage.getItem('gh_uid');
+if(!GH_UID){GH_UID='p_'+Math.random().toString(36).slice(2,10)+Date.now().toString(36);localStorage.setItem('gh_uid',GH_UID);}
+let GH_NAME = localStorage.getItem('gh_name');
+if(!GH_NAME){try{const _u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;GH_NAME=(_u&&(_u.first_name||'').trim())||'';}catch(e){}GH_NAME=GH_NAME||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);}
+let GH_GBEST = parseInt(localStorage.getItem('gh_gbest')||'0',10)||0;
+const GH_OK = SUPABASE_URL.indexOf('abcdefgh')<0 && SUPABASE_KEY.length>12;
+const GH_H = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'};
+const GH_L = (fa,en)=>lang==='fa'?fa:en;
+function GH_esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+(function(){const s=document.createElement('style');s.textContent=`
+#boardOv{justify-content:flex-start;padding-top:calc(64px + env(safe-area-inset-top))}
+.g-podium{display:flex;align-items:flex-end;gap:10px;justify-content:center;width:min(94vw,420px)}
+.g-pl{flex:1;text-align:center;padding:14px 8px 12px;background:linear-gradient(160deg,#0c1c2af0,#081019f0);border:1px solid var(--line);display:flex;flex-direction:column;gap:5px;clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px);transition:transform .18s}
+.g-pl:hover{transform:translateY(-3px)}
+.g-pl .g-med{font-size:26px;animation:floaty 4s ease-in-out infinite}
+.g-pl b{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.g-pl i{font-style:normal;font-size:18px;font-weight:900;color:var(--amber2)}
+.g-p1{min-height:132px;border-color:#8a6a1a;box-shadow:0 0 30px -6px var(--amber2)}
+.g-p2{min-height:104px;border-color:#5a6b78}
+.g-p3{min-height:88px;border-color:#7a4a2a}
+.g-list{display:flex;flex-direction:column;gap:7px;width:min(94vw,420px);max-height:34vh;overflow-y:auto;touch-action:pan-y;padding:2px}
+.g-row{display:flex;align-items:center;gap:10px;background:#0b1a28cc;border:1px solid var(--line);padding:9px 13px;transition:transform .15s,border-color .2s}
+.g-row:hover{transform:translateX(-3px);border-color:var(--cyan)}
+.g-rk{width:30px;font-size:14px;font-weight:900;color:var(--dim)}
+.g-nm{flex:1;font-size:14px;font-weight:700;text-align:start;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-sc{font-size:15px;font-weight:900;color:var(--amber2)}
+.g-me{border-color:var(--amber)!important;background:#1c1408e8!important;box-shadow:0 0 16px -6px var(--amber)}
+.g-you{font-style:normal;font-size:9px;background:var(--amber);color:#241300;padding:1px 7px;font-weight:900;margin-inline-start:6px;vertical-align:middle}
+.g-foot{display:flex;align-items:center;gap:10px;width:min(94vw,420px);background:#0a1622cc;border:1px solid var(--line);padding:10px 14px;font-size:13px;color:var(--dim);font-weight:600;flex-wrap:wrap}
+.g-foot input{flex:1;min-width:90px;background:#0c1c2a;border:1px solid var(--line);color:var(--text);font-family:inherit;font-weight:800;font-size:14px;padding:7px 11px;outline:none;direction:auto}
+.g-foot input:focus{border-color:var(--cyan)}
+.g-mybest{margin-inline-start:auto;color:var(--dim)}.g-mybest b{color:var(--amber2);font-size:15px}
+.g-load,.g-empty{text-align:center;color:var(--dim);font-size:14px;padding:26px 10px;font-weight:600}
+.g-load{animation:blink 1.2s infinite}
+.g-live{font-size:11px;color:var(--green);font-weight:800;display:inline-flex;align-items:center;gap:5px}
+.g-live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 1.4s infinite}
+`;document.head.appendChild(s);})();
+async function GH_fetch(){if(!GH_OK)return null;
+ try{const r=await fetch(SUPABASE_URL+'/rest/v1/leaderboard?select=user_id,name,score&order=score.desc&limit=60',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
+  if(!r.ok)throw 0;return await r.json();}catch(e){return null;}}
+async function GH_push(sc,mode){if(!GH_OK||sc<=0||sc<=GH_GBEST)return;
+ GH_GBEST=sc;localStorage.setItem('gh_gbest',String(sc));
+ try{await fetch(SUPABASE_URL+'/rest/v1/leaderboard',{method:'POST',headers:GH_H,body:JSON.stringify({user_id:GH_UID,name:GH_NAME,score:sc,mode:mode||'lvl'})});}catch(e){}}
+function submitScore(sc,mode){if(sc<=0)return;
+ const ex=board.find(b=>b.me);
+ if(ex){if(sc>ex.s){ex.s=sc;ex.m=mode;}}else board.push({n:GH_NAME,s:sc,m:mode,me:true});
+ board.sort((a,b)=>b.s-a.s);board=board.slice(0,50);store.set('gh_board',board);
+ GH_push(sc,mode);}
+function GH_shell(){const ov=$('boardOv');
+ ov.innerHTML='<div class="topbar"><button class="chip" id="bdBack2">◀ '+GH_L('بازگشت','BACK')+'</button><span class="chip"><span class="g-live">'+GH_L('زنده','LIVE')+'</span></span><button class="chip" id="bdRefresh">↻</button></div><div class="h-title display">🏆 '+GH_L('جدول جهانی','GLOBAL BOARD')+'</div><div class="g-podium" id="gPodium"></div><div class="g-list" id="gList"></div><div class="g-foot"><span>'+GH_L('نام تو:','Name:')+'</span><input id="gName" maxlength="14" value="'+GH_esc(GH_NAME)+'"><span class="g-mybest">'+GH_L('بهترین:','Best:')+' <b id="gMyBest">'+fmt(GH_GBEST)+'</b></span></div>';
+ $('bdBack2').onclick=()=>{SFX.click();showMenu();};
+ $('bdRefresh').onclick=()=>{SFX.click();renderBoard();};
+ $('gName').onchange=function(){GH_NAME=this.value.trim()||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);};}
+async function renderBoard(){const ov=$('boardOv');
+ if(!ov.querySelector('#gList'))GH_shell();
+ const pod=$('gPodium'),list=$('gList');
+ pod.innerHTML='<div class="g-load">'+GH_L('در حال بارگذاری جدول جهانی…','Loading global board…')+'</div>';list.innerHTML='';
+ if(!GH_OK){pod.innerHTML='';list.innerHTML='<div class="g-empty">'+GH_L('کلیدها در کد نیستند.','Supabase keys not set.')+'</div>';return;}
+ const data=await GH_fetch();
+ if(!data){pod.innerHTML='';list.innerHTML='<div class="g-empty">'+GH_L('اتصال برقرار نشد. بعداً تلاش کن.','Connection failed. Try again later.')+'</div>';return;}
+ let rows=data.slice();
+ if(!rows.find(r=>r.user_id===GH_UID)&&GH_GBEST>0)rows.push({user_id:GH_UID,name:GH_NAME,score:GH_GBEST});
+ rows.sort((a,b)=>b.score-a.score);pod.innerHTML='';
+ [1,0,2].forEach(idx=>{const e=rows[idx];if(!e)return;const me=e.user_id===GH_UID;
+  const d=document.createElement('div');d.className='g-pl g-p'+(idx+1)+(me?' g-me':'');
+  d.innerHTML='<span class="g-med">'+['🥇','🥈','🥉'][idx]+'</span><b>'+GH_esc(e.name)+(me?'<em class="g-you">'+GH_L('شما','YOU')+'</em>':'')+'</b><i class="display">'+fmt(e.score)+'</i>';pod.appendChild(d);});
+ list.innerHTML='';
+ rows.slice(3).forEach((e,i)=>{const me=e.user_id===GH_UID;
+  const d=document.createElement('div');d.className='g-row'+(me?' g-me':'');
+  d.innerHTML='<span class="g-rk display">'+fmt(i+4)+'</span><span class="g-nm">'+GH_esc(e.name)+(me?'<em class="g-you">'+GH_L('شما','YOU')+'</em>':'')+'</span><span class="g-sc display">'+fmt(e.score)+'</span>';list.appendChild(d);});
+ if(rows.length===0)list.innerHTML='<div class="g-empty">'+GH_L('هنوز کسی ثبت نکرده — اولین نفر باش!','No scores yet — be the first!')+'</div>';
+ const mb=$('gMyBest');if(mb)mb.textContent=fmt(GH_GBEST);
+ if(window.gsap){gsap.fromTo('.g-pl',{y:26,opacity:0},{y:0,opacity:1,stagger:0.09,duration:0.42,ease:'back.out(2)'});gsap.fromTo('.g-row',{x:-20,opacity:0},{x:0,opacity:1,stagger:0.04,duration:0.32,ease:'power2.out'});}}
+/* ═══════════════ پایان بلوک ═══════════════ */
+  (async function boot(){
  if(!window.PIXI){$('errOv').classList.remove('hidden');return;}
  try{
   app=new PIXI.Application();
