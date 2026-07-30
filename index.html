@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#04090f">
-<title>شکارچی کهکشان II | Galaxy Hunter II</title>
+<title>شکارچی کهکشان | Galaxy Hunter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Orbitron:wght@600;800;900&family=Vazirmatn:wght@400;600;800&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
@@ -97,6 +97,39 @@ body.fa .display{font-family:'Lalezar','Orbitron',sans-serif;letter-spacing:0}
 .btn.green{--c:var(--green);color:#06281a;background:linear-gradient(180deg,#63f7bb,#22c97f);border-color:#8dffd0}
 .btnrow{display:flex;gap:10px}
 .btnrow .btn{flex:1}
+/* ===== هومِ بازطراحی‌شده ===== */
+#menu{justify-content:flex-start;gap:13px;padding-top:calc(12px + env(safe-area-inset-top));padding-bottom:calc(54px + env(safe-area-inset-bottom));overflow-y:auto}
+.mbar{position:relative;width:min(92vw,400px);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;background:linear-gradient(160deg,#0b1a28e6,#081019e6);border:1px solid var(--line);clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.mbar-id{display:flex;align-items:center;gap:10px;min-width:0}
+.mbar-av{width:38px;height:38px;flex:none;display:grid;place-items:center;font-weight:900;font-size:17px;color:#241300;background:linear-gradient(160deg,#ffd97a,#ff9a1f);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);box-shadow:0 0 14px rgba(255,180,58,.4)}
+.mbar-meta{display:flex;flex-direction:column;gap:1px;min-width:0}
+.mbar-meta b{font-size:14px;font-weight:900;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40vw}
+.mbar-meta span{font-size:10.5px;font-weight:700;color:var(--cyan);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbar-tools{display:flex;align-items:center;gap:7px}
+.ping{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:var(--dim);padding:4px 9px;background:#0c1c2a;border:1px solid var(--line);direction:ltr}
+.ping::before{content:'';width:7px;height:7px;border-radius:50%;background:#3a4a5a}
+.ping b{color:var(--text);font-variant-numeric:tabular-nums}
+.ping.good{color:#7fe9bd}.ping.good::before{background:var(--green);box-shadow:0 0 8px var(--green)}
+.ping.mid{color:#ffd97a}.ping.mid::before{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.ping.bad{color:#ff8fa3}.ping.bad::before{background:var(--red);box-shadow:0 0 8px var(--red)}
+.mbar-coin{font-size:12px;font-weight:800;color:var(--amber2);padding:4px 9px;background:#1c1408cc;border:1px solid #4d3a17}
+.mbar-gear{pointer-events:auto;width:34px;height:34px;display:grid;place-items:center;font-size:16px;color:var(--cyan2);background:#0c2231;border:1px solid var(--line);cursor:pointer;transition:.25s;clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+.mbar-gear:hover{color:#fff;border-color:var(--cyan);transform:rotate(40deg)}
+.mbar-gear:active{transform:scale(.9)}
+#menu .badge{margin-top:2px}
+.mbest{font-size:12px;font-weight:700;color:var(--dim);display:flex;align-items:center;gap:6px;justify-content:center}
+.mbest b{color:var(--amber2);font-size:14px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(92vw,400px)}
+.mtile{position:relative;overflow:hidden;display:flex;align-items:center;gap:13px;padding:15px 16px;text-align:start;font-family:inherit;cursor:pointer;background:linear-gradient(160deg,#0b1a28f0,#081019f0);border:1px solid var(--line);color:var(--text);transition:transform .15s,border-color .2s,box-shadow .2s;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
+.mtile::after{content:'';position:absolute;top:0;bottom:0;width:45%;left:-50%;background:linear-gradient(100deg,transparent,rgba(55,224,255,.10),transparent);transition:left .6s}
+.mtile:hover{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 12px 26px -12px rgba(55,224,255,.5)}
+.mtile:hover::after{left:120%}
+.mtile:active{transform:scale(.98)}
+.mtile.wide{width:min(92vw,400px)}
+.mt-ico{width:42px;height:42px;flex:none;display:grid;place-items:center;font-size:21px;background:#0c1c2a;border:1px solid #2a4a60;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.mt-t{font-size:15px;font-weight:800}
+.mt-live{margin-inline-start:auto}
+#menu .foot{position:static;margin-top:4px}
 #dailyCard{position:relative;width:min(92vw,400px);display:flex;align-items:center;gap:14px;background:linear-gradient(160deg,#181006f0,#0b0804f0);border:1px solid #4d3a17;padding:16px;cursor:pointer;transition:.2s;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
 #dailyCard:hover{transform:translateY(-3px);box-shadow:0 12px 28px -10px rgba(255,180,58,.5);border-color:var(--amber)}
 #dailyCard:active{transform:scale(.98)}
@@ -108,25 +141,9 @@ body.fa .display{font-family:'Lalezar','Orbitron',sans-serif;letter-spacing:0}
 .d-info em{font-style:normal;font-size:11px;color:var(--dim)}
 .d-info em b{color:var(--amber2);font-size:12px}
 .d-timer{font-size:19px;font-weight:900;color:var(--cyan);text-shadow:0 0 12px rgba(55,224,255,.4);font-variant-numeric:tabular-nums;direction:ltr}
-#boardOv{justify-content:flex-start;padding-top:calc(64px + env(safe-area-inset-top))}
-#podium{display:flex;align-items:flex-end;gap:10px;justify-content:center;width:min(94vw,420px)}
-.plaque{flex:1;text-align:center;padding:12px 8px;background:linear-gradient(160deg,#0c1c2af0,#081019f0);border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px);transition:transform .15s}
-.plaque:hover{transform:translateY(-3px)}
-.plaque .medal{font-size:26px}
-.plaque b{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.plaque i{font-style:normal;font-size:17px;font-weight:900;color:var(--amber2)}
-.plaque.p1{min-height:122px;border-color:#8a6a1a;box-shadow:0 0 26px -6px #ffd97a}
-.plaque.p2{min-height:94px;border-color:#5a6b78}
-.plaque.p3{min-height:78px;border-color:#7a4a2a}
-#boardList{display:flex;flex-direction:column;gap:7px;width:min(94vw,420px);max-height:36vh;overflow-y:auto;touch-action:pan-y;padding:2px}
-.brow{display:flex;align-items:center;gap:10px;background:#0b1a28cc;border:1px solid var(--line);padding:8px 12px;transition:transform .15s,border-color .2s,background .2s}
-.brow:hover{transform:translateY(-2px);border-color:var(--cyan)}
-.brow.me{border-color:var(--amber);background:#1c1408e8;box-shadow:0 0 16px -6px var(--amber)}
-.rk{width:28px;font-size:14px;font-weight:900;color:var(--dim)}
-.bn{flex:1;font-size:14px;font-weight:700;text-align:start;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.youtag{font-style:normal;font-size:10px;background:var(--amber);color:#241300;padding:1px 7px;font-weight:900;margin-inline-start:5px}
-.bm{font-size:12px;color:var(--cyan)}
-.bs{font-size:15px;color:var(--amber2)}
+.s-ver{font-size:11px;color:#4d6b7d;letter-spacing:.2em}
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,18px);z-index:55;max-width:90vw;padding:11px 18px;font-size:13px;font-weight:800;color:var(--text);background:#0b1a28f2;border:1px solid var(--tc,#3ef0a5);box-shadow:0 0 24px -6px var(--tc,#3ef0a5);opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
 .strips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .best-strip{display:flex;align-items:center;gap:10px;background:#0a1622cc;border:1px solid var(--line);border-inline-start:3px solid var(--amber);padding:9px 16px;font-size:13px;color:var(--dim);font-weight:600}
 .best-strip.gold{border-inline-start-color:var(--amber2)}
@@ -212,28 +229,44 @@ body.fa #introLevel{letter-spacing:.05em}
 <div id="warn"></div>
 <div id="streak" class="display"></div>
 <div id="hint"><span>☝</span>&nbsp; <span id="hintTxt"></span></div>
+
 <div id="menu" class="ov">
-  <div class="topbar"><button class="chip" id="langChip">EN</button><button class="chip gold" id="boardChip">🏆</button><button class="chip" id="soundChip"></button></div>
+  <div class="mbar">
+    <div class="mbar-id"><span class="mbar-av" id="mAv">✦</span><div class="mbar-meta"><b id="mName">خلبان</b><span id="mRank">…</span></div></div>
+    <div class="mbar-tools">
+      <span class="ping" id="mPing">📡 <b>—</b></span>
+      <span class="mbar-coin">🪙 <b id="menuCoins">0</b></span>
+      <button class="mbar-gear" id="gearBtn" aria-label="settings">⚙</button>
+    </div>
+  </div>
   <div class="badge">✦</div>
   <div class="logo-wrap"><div class="logo display" data-i="title"></div><div class="tagline" data-i="tag"></div></div>
-  <div class="console"><div class="sweep"></div>
-    <div class="sys"><span class="dot"></span><span data-i="sys"></span></div>
-    <button class="btn primary big" id="startBtn" data-i="start"></button>
-    <div class="btnrow"><button class="btn" id="levelsBtn" data-i="levels"></button><button class="btn" id="hangarBtn" data-i="hangar"></button></div>
-  </div>
+  <div class="mbest">🏆 <span data-i="best"></span>: <b id="bestVal" class="display">0</b></div>
+  <button class="btn primary big" id="startBtn" data-i="start"></button>
   <div id="dailyCard">
     <div class="d-stamp" data-i="today"></div>
-    <div class="d-info"><b>🎯 <span data-i="daily_t"></span></b>
-      <span class="d-mods" id="dailyModChips"></span>
-      <em><span data-i="best_today"></span>: <b id="dailyBestTxt">—</b></em></div>
+    <div class="d-info"><b>🎯 <span data-i="daily_t"></span></b><span class="d-mods" id="dailyModChips"></span><em><span data-i="best_today"></span>: <b id="dailyBestTxt">—</b></em></div>
     <div class="d-timer display" id="dailyTimer">--:--:--</div>
   </div>
-  <div class="strips">
-    <div class="best-strip"><span data-i="best"></span><b id="bestVal" class="display">0</b></div>
-    <div class="best-strip gold"><span>🪙 <span data-i="coins"></span></span><b id="menuCoins" class="display">0</b></div>
+  <div class="mgrid">
+    <button class="mtile" id="levelsBtn"><span class="mt-ico">🗺️</span><span class="mt-t" data-i="levels"></span></button>
+    <button class="mtile" id="hangarBtn"><span class="mt-ico">🔧</span><span class="mt-t" data-i="hangar"></span></button>
   </div>
-  <div class="foot display">GALAXY HUNTER II · SEASON 1</div>
+  <button class="mtile wide" id="boardChip"><span class="mt-ico">🏆</span><span class="mt-t" data-i="board_t"></span><span class="mt-live"><span class="g-live"></span></span></button>
+  <div class="foot display">GALAXY HUNTER · v1.0</div>
 </div>
+
+<div id="settingsOv" class="ov hidden">
+  <div class="panel">
+    <h2 class="display" data-i="settings_t"></h2>
+    <button class="btn" id="sLang"></button>
+    <button class="btn" id="sSound"></button>
+    <button class="btn" id="sName">✎</button>
+    <div class="s-ver display">v1.0</div>
+    <button class="btn ghost" id="sClose" data-i="back"></button>
+  </div>
+</div>
+
 <div id="levelsOv" class="ov hidden">
   <div class="topbar"><button class="chip" id="lvBack" data-i="back"></button></div>
   <div class="h-title display" data-i="levels_title"></div>
@@ -243,19 +276,15 @@ body.fa #introLevel{letter-spacing:.05em}
     <span class="c-info"><b>∞</b><i data-i="endless_name"></i><em id="endInfo"></em></span>
     <span class="c-go">▶</span></div></div>
 </div>
-<div id="boardOv" class="ov hidden">
-  <div class="topbar"><button class="chip" id="bdBack" data-i="back"></button>
-    <button class="chip gold"><span data-i="board_week"></span> <b id="weekLbl"></b> · <span data-i="board_reset"></span> <b id="weekTimer"></b></button></div>
-  <div class="h-title display" data-i="board_t"></div>
-  <div id="podium"></div>
-  <div id="boardList"></div>
-  <button class="btn primary hidden" id="boardSubmit" data-i="board_submit"></button>
-</div>
+
+<div id="boardOv" class="ov hidden"></div>
+
 <div id="hangarOv" class="ov hidden">
   <div class="topbar"><button class="chip" id="hgBack" data-i="back"></button><button class="chip gold">🪙 <b id="hgCoins">0</b></button></div>
   <div class="h-title display" data-i="hangar_title"></div>
   <div class="hangar" id="hangarList"></div>
 </div>
+
 <div id="pauseOv" class="ov hidden">
   <div class="panel">
     <h2 class="display" data-i="pause_t"></h2>
@@ -265,6 +294,7 @@ body.fa #introLevel{letter-spacing:.05em}
     <button class="btn ghost danger" id="exitBtn" data-i="exit"></button>
   </div>
 </div>
+
 <div id="overOv" class="ov hidden">
   <div class="panel red">
     <h2 class="display" data-i="over_t"></h2>
@@ -277,6 +307,7 @@ body.fa #introLevel{letter-spacing:.05em}
     <button class="btn ghost" id="overMenuBtn" data-i="to_menu"></button>
   </div>
 </div>
+
 <div id="clearOv" class="ov hidden">
   <div class="panel green">
     <h2 class="display" data-i="clear_t"></h2>
@@ -287,6 +318,7 @@ body.fa #introLevel{letter-spacing:.05em}
     <button class="btn primary big" id="nextBtn" data-i="next"></button>
   </div>
 </div>
+
 <div id="vicOv" class="ov hidden">
   <div class="panel gold">
     <div class="trophy">🏆</div>
@@ -298,11 +330,14 @@ body.fa #introLevel{letter-spacing:.05em}
     <button class="btn ghost" id="vicMenuBtn" data-i="to_menu"></button>
   </div>
 </div>
+
 <div id="errOv" class="ov hidden">
   <div class="panel red"><h2 class="display" data-i="err_title"></h2>
     <p style="color:var(--dim);font-size:13px;line-height:1.9" data-i="err_txt"></p>
     <button class="btn primary" onclick="location.reload()" data-i="err_btn"></button></div>
 </div>
+
+<div id="toast"></div>
 <div id="intro"><div id="introLevel" class="display"></div><div id="introName" class="display"></div><div id="introMods"></div><div id="introReady"></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.js"></script>
@@ -323,6 +358,7 @@ const clamp=(v,a,b)=>v<a?a:v>b?b:v;
 const I18N={
  fa:{title:'شکارچی کهکشان',tag:'نبرد نهایی در دل ستاره‌ها',sys:'سیستم‌های سلاح آنلاین',start:'🚀 شروع مأموریت',
   levels:'مراحل',hangar:'آشیانه 🔧',best:'بهترین امتیاز',coins:'سکه',sound:'صدا',on:'روشن',off:'خاموش',lang_btn:'EN',
+  settings_t:'تنظیمات',
   levels_title:'انتخاب مرحله',back:'بازگشت ▶',locked_hint:'مرحله قبل را تمام کن',
   endless_name:'حالت بی‌پایان',endless_lock:'🔒 مرحله ۱۰ را تمام کن تا باز شود',
   hangar_title:'آشیانه و ارتقاها',max:'حداکثر',buy:'خرید',
@@ -343,11 +379,12 @@ const I18N={
   st2:'دوگانه!',st3:'رگبار!',st4:'بی‌رقابت!',st6:'طوفان!',st9:'افسانه‌ای!',weapon:'سلاح',
   today:'امروز',daily_t:'چالش روزانه',best_today:'بهترین امروز',d_bossrush:'☠ دو غول پشت‌سرهم!',
   mod_glass:'سپر: فقط ۱',mod_nobomb:'بدون بمب',mod_frenzy:'دشمنان ×۱.۴',mod_fortune:'سکه ×۲',mod_overdrive:'سلاح حداکثر',mod_storm:'آتش شدید',
-  board_t:'جدول هفتگی',board_week:'هفته',board_reset:'ریست',board_submit:'ثبت امتیاز من در تلگرام 🚀',
-  board_you:'شما',daily_done:'در جدول جهانی ثبت شد ✓',
+  board_t:'جدول جهانی',board_week:'هفته',board_reset:'ریست',board_submit:'ثبت امتیاز من در تلگرام 🚀',
+  board_you:'شما',daily_done:'در جدول جهانی ثبت شد ✓',global_saved:'🌍 ثبت جهانی · رتبه‌ی تو #',
   err_title:'خطا در بارگذاری',err_txt:'کتابخانه PixiJS بارگذاری نشد. اتصال اینترنت را بررسی کن یا فایل‌ها را لوکال قرار بده.',err_btn:'تلاش دوباره'},
- en:{title:'GALAXY HUNTER II',tag:'The final battle in the heart of the stars',sys:'WEAPON SYSTEMS ONLINE',start:'🚀 START MISSION',
+ en:{title:'GALAXY HUNTER',tag:'The final battle in the heart of the stars',sys:'WEAPON SYSTEMS ONLINE',start:'🚀 START MISSION',
   levels:'LEVELS',hangar:'HANGAR 🔧',best:'HIGH SCORE',coins:'COINS',sound:'SOUND',on:'ON',off:'OFF',lang_btn:'فارسی',
+  settings_t:'SETTINGS',
   levels_title:'SELECT LEVEL',back:'◀ BACK',locked_hint:'Finish the previous level',
   endless_name:'ENDLESS MODE',endless_lock:'🔒 Clear level 10 to unlock',
   hangar_title:'HANGAR & UPGRADES',max:'MAX',buy:'BUY',
@@ -368,8 +405,8 @@ const I18N={
   st2:'DOUBLE KILL!',st3:'RAMPAGE!',st4:'UNSTOPPABLE!',st6:'STORM!',st9:'LEGENDARY!',weapon:'WEAPON',
   today:'TODAY',daily_t:'DAILY CHALLENGE',best_today:"TODAY'S BEST",d_bossrush:'☠ DOUBLE BOSS RUSH!',
   mod_glass:'SHIELD: 1',mod_nobomb:'NO BOMBS',mod_frenzy:'ENEMIES ×1.4',mod_fortune:'COINS ×2',mod_overdrive:'MAX WEAPON',mod_storm:'HEAVY FIRE',
-  board_t:'WEEKLY BOARD',board_week:'WEEK',board_reset:'RESET',board_submit:'SUBMIT MY SCORE 🚀',
-  board_you:'YOU',daily_done:'SAVED TO GLOBAL BOARD ✓',
+  board_t:'GLOBAL BOARD',board_week:'WEEK',board_reset:'RESET',board_submit:'SUBMIT MY SCORE 🚀',
+  board_you:'YOU',daily_done:'SAVED TO GLOBAL BOARD ✓',global_saved:'🌍 Global saved · rank #',
   err_title:'LOAD ERROR',err_txt:'PixiJS failed to load. Check your connection or bundle the libraries locally.',err_btn:'RETRY'}
 };
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
@@ -390,7 +427,7 @@ const maxShield=()=>3+upg.armor,startWeapon=()=>1+upg.weapon,startBombs=()=>2+up
 function cloudSave(){if(!tg||!tg.CloudStorage)return;
  try{tg.CloudStorage.setItem('gh2_save',JSON.stringify({coins,upg,best,unlocked,endUnlocked}),()=>{});}catch(e){}}
 
-/* ================= جدول هفتگی (محلی) ================= */
+/* ================= جدول محلی ================= */
 function strHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function weekKey(){const d=new Date(),j=new Date(d.getFullYear(),0,1);
  const wk=Math.ceil((((d-j)/86400000)+j.getDay()+1)/7);return d.getFullYear()+'-W'+wk;}
@@ -411,47 +448,8 @@ if(board.length===0)seedBoard();
 function tgName(){try{const u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;
  if(u)return u.first_name||'Pilot';}catch(e){}
  return lang==='fa'?'شما':'You';}
-/* submitScore و renderBoard در بلوک لیدربورد جهانی (پایین) override می‌شوند */
-function submitScore(sc,mode){if(sc<=0)return;
- const ex=board.find(b=>b.me);
- if(ex){if(sc>ex.s){ex.s=sc;ex.m=mode;}}else board.push({n:tgName(),s:sc,m:mode,me:true});
- board.sort((a,b)=>b.s-a.s);board=board.slice(0,50);store.set('gh_board',board);}
+function submitScore(sc,mode){return _submitScore(sc,mode);}
 const modeIcon=m=>m==='daily'?'🎯':(m==='endless'?'∞':fmt((m||0)+1));
-function weekResetStr(){const nd=new Date(),nx=new Date(nd);
- const diff=((7-nd.getDay())%7)||7;
- nx.setDate(nd.getDate()+diff);nx.setHours(0,0,0,0);
- let ms=nx-nd;const d=Math.floor(ms/86400000);ms-=d*86400000;
- const h=Math.floor(ms/3600000);ms-=h*3600000;const m=Math.floor(ms/60000);
- return (d>0?fmt(d)+(lang==='fa'?' روز ':'d '):'')+fmt(h)+':'+fmt(String(m).padStart(2,'0'));}
-function countUp(el,val){const o={v:0};gsap.to(o,{v:val,duration:0.8,ease:'power2.out',
- onUpdate:()=>{el.textContent=fmt(Math.round(o.v))}});}
-function renderBoard(){
- $('weekLbl').textContent=fmt(parseInt(wk.split('-W')[1],10));
- $('weekTimer').textContent=weekResetStr();
- const pod=$('podium');pod.innerHTML='';
- const top=board.slice(0,3);
- for(const idx of[1,0,2]){const e=top[idx];
-  const d=document.createElement('div');d.className='plaque p'+(idx+1);
-  d.innerHTML='<span class="medal">'+['🥇','','🥉'][idx]+'</span><b>'+(e?(e.me?tgName():e.n):'—')+'</b><i class="display">'+(e?fmt(e.s):'')+'</i>';
-  pod.appendChild(d);
-  if(e)countUp(d.querySelector('i'),e.s);}
- const list=$('boardList');list.innerHTML='';
- board.slice(3,12).forEach((e,i)=>{
-  const d=document.createElement('div');d.className='brow'+(e.me?' me':'');
-  d.innerHTML='<span class="rk display">'+fmt(i+4)+'</span>'+
-   '<span class="bn">'+(e.me?tgName():e.n)+(e.me?'<em class="youtag">'+T('board_you')+'</em>':'')+'</span>'+
-   '<span class="bm">'+modeIcon(e.m)+'</span><b class="bs display">'+fmt(e.s)+'</b>';
-  list.appendChild(d);});
- const my=board.findIndex(b=>b.me);
- if(my>=12){const e=board[my];
-  const d=document.createElement('div');d.className='brow me';
-  d.innerHTML='<span class="rk display">'+fmt(my+1)+'</span>'+
-   '<span class="bn">'+tgName()+'<em class="youtag">'+T('board_you')+'</em></span>'+
-   '<span class="bm">'+modeIcon(e.m)+'</span><b class="bs display">'+fmt(e.s)+'</b>';
-  list.appendChild(d);}
- $('boardSubmit').classList.toggle('hidden',!(tg&&tg.sendData));
- gsap.fromTo('#podium .plaque',{y:30,opacity:0},{y:0,opacity:1,stagger:0.09,duration:0.45,ease:'back.out(2)'});
- gsap.fromTo('#boardList .brow',{x:-24,opacity:0},{x:0,opacity:1,stagger:0.05,duration:0.35,ease:'power2.out'});}
 
 /* ================= چالش روزانه ================= */
 function dayKey(){const d=new Date();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
@@ -481,7 +479,6 @@ setInterval(()=>{const nd=new Date();
  let s=Math.max(0,Math.floor((mid-nd)/1000));
  const hh=String(Math.floor(s/3600)).padStart(2,'0'),mm=String(Math.floor(s%3600/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
  const dtEl=$('dailyTimer');if(dtEl)dtEl.textContent=fmt(hh)+':'+fmt(mm)+':'+fmt(ss);
- if(!$('boardOv').classList.contains('hidden'))$('weekTimer').textContent=weekResetStr();
 },1000);
 
 /* ================= صدا ================= */
@@ -1519,6 +1516,7 @@ function startLevel(lv){dailyMode=(lv===60);
  $('progFill').style.width='0%';
  $('bossBar').classList.remove('on');
  $('dmg').classList.remove('crit');critLast=false;
+ setPingActive(false);
  hideAllOv();$('hud').classList.remove('hidden');
  state='intro';introT=2.35;
  starBoost=1;SFX.warp();
@@ -1591,13 +1589,13 @@ function showMenu(){state='menu';
  $('bombBtn').style.display='';
  hideAllOv();$('menu').classList.remove('hidden');showOvAnim('menu');
  $('bestVal').textContent=fmt(best);$('menuCoins').textContent=fmt(coins);
- refreshDailyCard();
+ refreshDailyCard();refreshMbar();fetchMyRank();setPingActive(true);
  Music.play('menu');
  player.dead=false;pCont.visible=true;
  player.phoenixT=0;player.specterT=0;player.laserT=0;player.homingT=0;
  player.x=player.tx=W/2;player.y=player.ty=H-110;
  if(tg&&tg.BackButton)try{tg.BackButton.hide();}catch(e){}}
-function hideAllOv(){['menu','levelsOv','boardOv','hangarOv','pauseOv','overOv','clearOv','vicOv'].forEach(id=>$(id).classList.add('hidden'));}
+function hideAllOv(){['menu','levelsOv','boardOv','hangarOv','pauseOv','overOv','clearOv','vicOv','settingsOv'].forEach(id=>$(id).classList.add('hidden'));}
 function showOvAnim(id){gsap.fromTo('#'+id+' > *',{y:26,opacity:0},{y:0,opacity:1,stagger:0.06,duration:0.45,ease:'power3.out',overwrite:true});}
 function pauseGame(){if(state!=='playing')return;state='paused';SFX.click();
  hideAllOv();$('pauseOv').classList.remove('hidden');showOvAnim('pauseOv');}
@@ -1654,8 +1652,11 @@ function updateWeapChip(){const el=$('weapChip');el.textContent='⚡'+fmt(player
 function updateCoinsHUD(){const el=$('hudCoins');el.textContent='🪙 '+fmt(coins);
  gsap.fromTo(el,{scale:1.2},{scale:1,duration:0.25});}
 function refreshChips(){const st=T('sound')+': '+(muted?T('off'):T('on'));
- $('soundChip').textContent=(muted?'🔇 ':'🔊 ')+st;$('pSound').textContent=(muted?'🔇 ':'🔊 ')+st;
- $('langChip').textContent=T('lang_btn');$('pLang').textContent=T('lang_btn');}
+ const sS=$('sSound');if(sS)sS.textContent=(muted?'🔇 ':'🔊 ')+st;
+ const pS=$('pSound');if(pS)pS.textContent=(muted?'🔇 ':' ')+st;
+ const sL=$('sLang');if(sL)sL.textContent='🌐 '+T('lang_btn');
+ const pL=$('pLang');if(pL)pL.textContent='🌐 '+T('lang_btn');
+ const sN=$('sName');if(sN)sN.textContent='✎ '+(lang==='fa'?'تغییر اسم':'Change name');}
 function applyLang(){document.documentElement.lang=lang;
  document.documentElement.dir=lang==='fa'?'rtl':'ltr';
  document.body.classList.toggle('fa',lang==='fa');
@@ -1666,7 +1667,7 @@ function applyLang(){document.documentElement.lang=lang;
   :(endless?('∞ '+T('endless_name')):(T('chapter')+' '+fmt(ch+1)+' — '+T('ch_names')[ch]));
  if(bossActive)$('bossName').textContent='☠ '+T('boss_names')[boss.type];
  $('bestVal').textContent=fmt(best);$('menuCoins').textContent=fmt(coins);
- refreshChips();renderLevels();refreshDailyCard();
+ refreshChips();refreshMbar();renderLevels();refreshDailyCard();
  if(!$('hangarOv').classList.contains('hidden'))renderHangar();
  if(!$('boardOv').classList.contains('hidden'))renderBoard();
  store.set('gh_lang',lang);}
@@ -1674,8 +1675,8 @@ function toggleMute(){muted=!muted;store.set('gh_muted',muted);
  if(master)master.gain.value=muted?0:0.9;refreshChips();if(!muted)SFX.click();}
 function toggleLang(){lang=lang==='fa'?'en':'fa';SFX.click();applyLang();}
 function shareScore(){const txt=lang==='fa'
-  ?'من در شکارچی کهکشان II '+fmt(score)+' امتیاز گرفتم! 🚀'
-  :'I scored '+fmt(score)+' in Galaxy Hunter II! 🚀';
+  ?'من در شکارچی کهکشان '+fmt(score)+' امتیاز گرفتم! 🚀'
+  :'I scored '+fmt(score)+' in Galaxy Hunter! 🚀';
  const url='https://t.me/share/url?url='+encodeURIComponent('https://t.me/')+'&text='+encodeURIComponent(txt);
  if(tg&&tg.openTelegramLink)tg.openTelegramLink(url);else window.open(url);}
 
@@ -1922,16 +1923,15 @@ $('levelsBtn').addEventListener('click',()=>{unlockAudio();SFX.click();hideAllOv
 $('hangarBtn').addEventListener('click',()=>{unlockAudio();SFX.click();hideAllOv();renderHangar();$('hangarOv').classList.remove('hidden');showOvAnim('hangarOv');});
 $('dailyCard').addEventListener('click',()=>{unlockAudio();SFX.click();buildDailyCfg(dayKey());startLevel(60);});
 $('boardChip').addEventListener('click',()=>{unlockAudio();SFX.click();hideAllOv();renderBoard();$('boardOv').classList.remove('hidden');showOvAnim('boardOv');});
-$('bdBack').addEventListener('click',()=>{SFX.click();showMenu();});
-$('boardSubmit').addEventListener('click',()=>{
- const my=board.filter(b=>b.me).sort((a,b)=>b.s-a.s)[0];
- if(my&&tg&&tg.sendData){try{tg.sendData(JSON.stringify({app:'galaxy_hunter_2',type:'score',score:my.s,mode:my.m,week:wk}));}catch(e){}}});
 $('lvBack').addEventListener('click',()=>{SFX.click();showMenu();});
 $('hgBack').addEventListener('click',()=>{SFX.click();showMenu();});
-$('langChip').addEventListener('click',toggleLang);
+$('gearBtn').addEventListener('click',()=>{SFX.click();hideAllOv();$('settingsOv').classList.remove('hidden');showOvAnim('settingsOv');});
+$('sClose').addEventListener('click',()=>{SFX.click();showMenu();});
+$('sLang').addEventListener('click',toggleLang);
 $('pLang').addEventListener('click',toggleLang);
-$('soundChip').addEventListener('click',()=>{unlockAudio();toggleMute();});
+$('sSound').addEventListener('click',()=>{unlockAudio();toggleMute();});
 $('pSound').addEventListener('click',toggleMute);
+$('sName').addEventListener('click',()=>{SFX.click();runOnboard(true);});
 $('pauseBtn').addEventListener('click',pauseGame);
 $('resumeBtn').addEventListener('click',resumeGame);
 $('restartBtn').addEventListener('click',()=>{SFX.click();startLevel(levelIndex);});
@@ -1946,12 +1946,12 @@ $('bombBtn').addEventListener('click',useBomb);
 $('shareBtn1').addEventListener('click',shareScore);
 $('shareBtn2').addEventListener('click',shareScore);
 $('submitBtn').addEventListener('click',()=>{if(tg&&tg.sendData){
- try{tg.sendData(JSON.stringify({app:'galaxy_hunter_2',type:'score',score:score,level:levelIndex+1,coins:runCoins}));}catch(e){}}});
+ try{tg.sendData(JSON.stringify({app:'galaxy_hunter',type:'score',score:score,level:levelIndex+1,coins:runCoins}));}catch(e){}}});
 
 /* ================= راه‌اندازی اولیه ================= */
 applyLang();
 
-/* ═══════════════ لیدربورد جهانی (Supabase) — کلیدها پر شده ═══════════════ */
+/* ═══════════════ لیدربورد جهانی (Supabase) ═══════════════ */
 const SUPABASE_URL='https://femzookrzspnqymhuxcf.supabase.co';
 const SUPABASE_KEY='sb_publishable_okmNeoF7D53fInXjB1q7lg_eEOTGhL2';
 let GH_UID=localStorage.getItem('gh_uid');
@@ -1959,12 +1959,38 @@ if(!GH_UID){GH_UID='p_'+Math.random().toString(36).slice(2,10)+Date.now().toStri
 let GH_NAME=localStorage.getItem('gh_name');
 if(!GH_NAME){try{const _u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;GH_NAME=(_u&&(_u.first_name||'').trim())||'';}catch(e){}GH_NAME=GH_NAME||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);}
 let GH_GBEST=parseInt(localStorage.getItem('gh_gbest')||'0',10)||0;
+let GH_CHAT=null;try{GH_CHAT=(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.chat&&tg.initDataUnsafe.chat.id)||null;}catch(e){}
 const GH_OK=SUPABASE_URL.indexOf('abcdefgh')<0&&SUPABASE_KEY.length>12;
 const GH_H={'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'};
 const GH_L=(fa,en)=>lang==='fa'?fa:en;
 function GH_esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+/* --- پینگ زنده --- */
+let pingMs=-3,pingOn=false,pingTimer=0;
+async function measurePing(){if(!GH_OK){pingMs=-2;paintPing();return;}const t0=performance.now();
+ try{const r=await fetch(SUPABASE_URL+'/rest/v1/leaderboard?select=user_id&limit=1',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});if(!r.ok)throw 0;await r.text();pingMs=Math.round(performance.now()-t0);}catch(e){pingMs=-1;}paintPing();}
+function paintPing(){const el=$('mPing');if(!el)return;const b=el.querySelector('b');if(!b)return;
+ if(pingMs<0){el.className='ping bad';b.textContent=pingMs===-2?'—':'✕';return;}
+ el.className='ping '+(pingMs<120?'good':pingMs<260?'mid':'bad');b.textContent=fmt(pingMs);}
+function setPingActive(on){pingOn=on;clearInterval(pingTimer);if(on){measurePing();pingTimer=setInterval(measurePing,8000);}}
+/* --- رتبه‌ی جهانی --- */
+async function fetchMyRank(){const el=$('mRank');if(!el)return;el.textContent='…';
+ if(!GH_OK||GH_GBEST<=0){setRank(null);return;}const data=await GH_fetch();if(!data){setRank(null);return;}
+ let rows=data.slice();if(!rows.find(r=>r.user_id===GH_UID))rows.push({user_id:GH_UID,score:GH_GBEST});
+ rows.sort((a,b)=>b.score-a.score);const i=rows.findIndex(r=>r.user_id===GH_UID);setRank(i>=0?i+1:null,rows.length);}
+function setRank(r,total){const el=$('mRank');if(!el)return;
+ if(r)el.textContent=(lang==='fa'?'رتبه‌ی جهانی #':'Global #')+fmt(r)+(total?' / '+fmt(total):'');
+ else el.textContent=lang==='fa'?'هنوز بدون رتبه':'No rank yet';}
+/* --- نوار خلبان --- */
+function refreshMbar(){const n=(typeof GH_NAME!=='undefined'&&GH_NAME)?GH_NAME:(lang==='fa'?'خلبان':'Pilot');
+ const el=$('mName');if(el)el.textContent=n;const av=$('mAv');if(av)av.textContent=(n.trim()[0]||'✦');}
+/* --- toast --- */
+let _toastT=0;
+function toast(msg,col){const el=$('toast');if(!el)return;el.textContent=msg;el.style.setProperty('--tc',col||'#3ef0a5');el.classList.remove('show');void el.offsetWidth;el.classList.add('show');clearTimeout(_toastT);_toastT=setTimeout(()=>el.classList.remove('show'),3400);}
+/* --- اعلام به گروه --- */
+function announceToGroup(name,sc,rank){if(!(tg&&tg.sendData))return;
+ try{tg.sendData(JSON.stringify({app:'galaxy_hunter',kind:'announce',name:name,score:sc,rank:rank||0,chat:GH_CHAT,lang:lang}));}catch(e){}}
+/* --- استایل زنده‌ی جدول جهانی --- */
 (function(){const s=document.createElement('style');s.textContent=`
-#boardOv{justify-content:flex-start;padding-top:calc(64px + env(safe-area-inset-top))}
 .g-podium{display:flex;align-items:flex-end;gap:10px;justify-content:center;width:min(94vw,420px)}
 .g-pl{flex:1;text-align:center;padding:14px 8px 12px;background:linear-gradient(160deg,#0c1c2af0,#081019f0);border:1px solid var(--line);display:flex;flex-direction:column;gap:5px;clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px);transition:transform .18s}
 .g-pl:hover{transform:translateY(-3px)}
@@ -1995,25 +2021,27 @@ async function GH_fetch(){if(!GH_OK)return null;
  try{const r=await fetch(SUPABASE_URL+'/rest/v1/leaderboard?select=user_id,name,score&order=score.desc&limit=60',
    {headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
   if(!r.ok)throw 0;return await r.json();}catch(e){return null;}}
-async function GH_push(sc,mode){if(!GH_OK||sc<=0)return;
+async function GH_push(sc,mode){if(!GH_OK||sc<=0)return null;
  let serverBest=0;
  try{const r=await fetch(SUPABASE_URL+'/rest/v1/leaderboard?user_id=eq.'+GH_UID+'&select=score',
    {headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
   if(r.ok){const a=await r.json();serverBest=(a[0]&&a[0].score)||0;}}catch(e){}
- if(sc<=serverBest&&sc<=GH_GBEST)return;
+ if(sc<=serverBest&&sc<=GH_GBEST)return null;
  GH_GBEST=Math.max(sc,GH_GBEST);localStorage.setItem('gh_gbest',String(GH_GBEST));
  try{await fetch(SUPABASE_URL+'/rest/v1/leaderboard',{method:'POST',headers:GH_H,
-   body:JSON.stringify({user_id:GH_UID,name:GH_NAME,score:sc,mode:mode||'lvl'})});}catch(e){}}
-function submitScore(sc,mode){if(sc<=0)return;
- const ex=board.find(b=>b.me);
- if(ex){if(sc>ex.s){ex.s=sc;ex.m=mode;}}else board.push({n:GH_NAME,s:sc,m:mode,me:true});
+   body:JSON.stringify({user_id:GH_UID,name:GH_NAME,score:sc,mode:mode||'lvl'})});}catch(e){return null;}
+ let rank=null;try{const data=await GH_fetch();if(data){let rows=data.slice();if(!rows.find(r=>r.user_id===GH_UID))rows.push({user_id:GH_UID,score:sc});rows.sort((a,b)=>b.score-a.score);const i=rows.findIndex(r=>r.user_id===GH_UID);rank=i>=0?i+1:null;}}catch(e){}
+ return rank;}
+async function _submitScore(sc,mode){if(sc<=0)return;
+ const ex=board.find(b=>b.me);if(ex){if(sc>ex.s){ex.s=sc;ex.m=mode;}}else board.push({n:GH_NAME,s:sc,m:mode,me:true});
  board.sort((a,b)=>b.s-a.s);board=board.slice(0,50);store.set('gh_board',board);
- GH_push(sc,mode);}
+ const before=GH_GBEST;const rank=await GH_push(sc,mode);
+ if(rank&&sc>before){announceToGroup(GH_NAME,sc,rank);toast(T('global_saved')+fmt(rank),'#3ef0a5');}}
 function GH_shell(){const ov=$('boardOv');
  ov.innerHTML='<div class="topbar"><button class="chip" id="bdBack2">◀ '+GH_L('بازگشت','BACK')+'</button><span class="chip"><span class="g-live">'+GH_L('زنده','LIVE')+'</span></span><button class="chip" id="bdRefresh">↻</button></div><div class="h-title display">🏆 '+GH_L('جدول جهانی','GLOBAL BOARD')+'</div><div class="g-podium" id="gPodium"></div><div class="g-list" id="gList"></div><div class="g-foot"><span>'+GH_L('نام تو:','Name:')+'</span><input id="gName" maxlength="14" value="'+GH_esc(GH_NAME)+'"><span class="g-mybest">'+GH_L('بهترین:','Best:')+' <b id="gMyBest">'+fmt(GH_GBEST)+'</b></span></div>';
  $('bdBack2').onclick=()=>{SFX.click();showMenu();};
  $('bdRefresh').onclick=()=>{SFX.click();renderBoard();};
- $('gName').onchange=function(){GH_NAME=this.value.trim()||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);};}
+ $('gName').onchange=function(){GH_NAME=this.value.trim()||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);refreshMbar();};}
 async function renderBoard(){const ov=$('boardOv');
  if(!ov.querySelector('#gList'))GH_shell();
  const pod=$('gPodium'),list=$('gList');
@@ -2036,21 +2064,21 @@ async function renderBoard(){const ov=$('boardOv');
  if(window.gsap){gsap.fromTo('.g-pl',{y:26,opacity:0},{y:0,opacity:1,stagger:0.09,duration:0.42,ease:'back.out(2)'});gsap.fromTo('.g-row',{x:-20,opacity:0},{x:0,opacity:1,stagger:0.04,duration:0.32,ease:'power2.out'});}}
 /* ═══════════════ پایان لیدربورد جهانی ═══════════════ */
 
-/* ═══════════════ صفحه‌ی خوش‌آمد / انتخاب اسم (یک‌بار) ═══════════════ */
+/* ═══════════════ صفحه‌ی خوش‌آمد / انتخاب اسم ═══════════════ */
 const OB_T={
  fa:{welcome:'به کهکشان خوش آمدی',kicker:'ثبت خلبان',
    id_found:'اسم تلگرامت را پیدا کردیم',id_none:'اسم تلگرام پیدا نشد — یکی بنویس',
    current:'اسم فعلی تو',with_this:'با این اسم در جدول جهانی رقابت می‌کنی:',
    keep:'✓ همین اسم تلگرامم',custom:'✎ اسم دلخواه می‌خواهم',
    custom_q:'اسمی که دوست داری بنویس',ph:'مثلاً: کاپیتان رعد',
-   confirm:'تأیید و ورود ▶',back:'◀ بازگشت',note:'بعداً از منو هم می‌توانی عوضش کنی',
+   confirm:'تأیید و ورود ▶',back:'◀ بازگشت',note:'بعداً از تنظیمات هم می‌توانی عوضش کنی',
    err:'اسم نمی‌تواند خالی باشد',fallback:'خلبان',edit:'✎ اسم'},
  en:{welcome:'Welcome to the Galaxy',kicker:'PILOT REGISTRATION',
    id_found:'We found your Telegram name',id_none:'No Telegram name found — type one',
    current:'Your current name',with_this:'You will compete on the global board as:',
    keep:'✓ Keep my Telegram name',custom:'✎ I want a custom name',
    custom_q:'Type the name you like',ph:'e.g. Captain Raid',
-   confirm:'CONFIRM & ENTER ▶',back:'◀ BACK',note:'You can change it later from the menu',
+   confirm:'CONFIRM & ENTER ▶',back:'◀ BACK',note:'You can change it later from settings',
    err:'Name cannot be empty',fallback:'Pilot',edit:'✎ NAME'}
 };
 const obT=k=>(OB_T[lang]||OB_T.fa)[k];
@@ -2123,7 +2151,6 @@ body.fa .ob-kicker{letter-spacing:.05em}
 .ob-err{font-size:12px;color:var(--red);font-weight:800}
 .ob-inputbtns{display:flex;gap:10px}.ob-inputbtns .ob-btn{flex:1}
 .ob-note{margin-top:16px;font-size:11px;color:#4d6b7d}
-#obNameChip{pointer-events:auto}
 @keyframes obRise{from{opacity:0;transform:translateY(24px) scale(.97)}}
 `;document.head.appendChild(st);
 
@@ -2187,6 +2214,7 @@ body.fa .ob-kicker{letter-spacing:.05em}
  }
  function finish(name,celebrate){try{unlockAudio();}catch(e){}
   const n=obSetName(name);try{SFX.power();}catch(e){}try{hap('medium');}catch(e){}
+  refreshMbar();
   if(celebrate&&typeof confetti==='function'){try{confetti({particleCount:70,spread:70,origin:{y:.45},
    colors:['#ffb43a','#37e0ff','#3ef0a5','#ff4d6d']});}catch(e){}}
   ov.classList.add('out');stopSky();
@@ -2204,13 +2232,6 @@ body.fa .ob-kicker{letter-spacing:.05em}
   else{$('obIdBox').classList.remove('hidden');$('obIdLbl').textContent=obT('id_none');
    $('obIdName').textContent='—';showInput('');}
  };
-
- function injectChip(){const tb=document.querySelector('#menu .topbar');if(!tb||$('obNameChip'))return;
-  const b=document.createElement('button');b.className='chip';b.id='obNameChip';b.textContent=obT('edit');
-  b.onclick=()=>{try{SFX.click();}catch(e){}runOnboard(true);};
-  tb.insertBefore(b,tb.firstChild);
-  const lc=$('langChip');if(lc)lc.addEventListener('click',()=>setTimeout(()=>{b.textContent=obT('edit');},0));}
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',injectChip);else injectChip();
 })();
 /* ═══════════════ پایان خوش‌آمد ═══════════════ */
 
