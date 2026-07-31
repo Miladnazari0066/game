@@ -79,6 +79,14 @@ body.fa .display{font-family:'Lalezar','Orbitron',sans-serif;letter-spacing:0}
 .logo-wrap{text-align:center}
 .logo{font-size:clamp(40px,10.5vw,78px);line-height:1.02;font-weight:900;color:#fff;text-shadow:3px 0 0 rgba(255,77,109,.5),-3px 0 0 rgba(55,224,255,.5),0 0 34px rgba(55,224,255,.35);animation:floaty 6s ease-in-out infinite}
 .tagline{margin-top:8px;color:var(--dim);font-size:14px;font-weight:600;letter-spacing:.04em}
+.console{position:relative;overflow:hidden;width:min(92vw,400px);background:linear-gradient(160deg,#0b1a28f0,#081019f0);border:1px solid var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.console::before,.console::after,.panel::before,.panel::after{content:'';position:absolute;width:18px;height:18px;border:2px solid var(--amber);z-index:2}
+.console::before,.panel::before{top:-2px;inset-inline-start:-2px;border-bottom:0;border-inline-end:0}
+.console::after,.panel::after{bottom:-2px;inset-inline-end:-2px;border-top:0;border-inline-start:0}
+.sweep{position:absolute;left:0;right:0;height:34%;top:-40%;background:linear-gradient(180deg,transparent,rgba(55,224,255,.07),transparent);animation:sweep 4.5s linear infinite;pointer-events:none}
+@keyframes sweep{to{top:115%}}
+.sys{display:flex;gap:9px;align-items:center;justify-content:center;color:var(--dim);font-size:12px;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 9px var(--green);animation:blink 1.4s infinite}
 .btn{--c:var(--cyan);position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 22px;font-family:inherit;font-weight:800;font-size:16px;color:var(--text);background:#0c2231;border:1px solid var(--c);cursor:pointer;touch-action:manipulation;transition:transform .12s,box-shadow .2s,filter .2s;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
 .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px -8px var(--c);filter:brightness(1.12)}
 .btn:active{transform:translateY(1px) scale(.97)}
@@ -135,6 +143,11 @@ body.fa .display{font-family:'Lalezar','Orbitron',sans-serif;letter-spacing:0}
 .s-ver{font-size:11px;color:#4d6b7d;letter-spacing:.2em}
 #toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,18px);z-index:55;max-width:90vw;padding:11px 18px;font-size:13px;font-weight:800;color:var(--text);background:#0b1a28f2;border:1px solid var(--tc,#3ef0a5);box-shadow:0 0 24px -6px var(--tc,#3ef0a5);opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
 #toast.show{opacity:1;transform:translate(-50%,0)}
+.strips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.best-strip{display:flex;align-items:center;gap:10px;background:#0a1622cc;border:1px solid var(--line);border-inline-start:3px solid var(--amber);padding:9px 16px;font-size:13px;color:var(--dim);font-weight:600}
+.best-strip.gold{border-inline-start-color:var(--amber2)}
+.best-strip b{color:var(--amber2);font-size:18px;font-weight:900}
+.foot{position:absolute;bottom:calc(12px + env(safe-area-inset-bottom));color:#4d6b7d;font-size:11px;letter-spacing:.15em}
 .panel{position:relative;width:min(92vw,400px);background:linear-gradient(160deg,#0b1a28f5,#081019f5);border:1px solid var(--line);padding:26px 22px;text-align:center;display:flex;flex-direction:column;gap:12px}
 .panel h2{font-size:clamp(26px,7vw,36px);font-weight:900}
 .panel.red h2{color:var(--red);text-shadow:0 0 24px rgba(255,77,109,.4)}
@@ -159,6 +172,7 @@ body.fa .display{font-family:'Lalezar','Orbitron',sans-serif;letter-spacing:0}
 .lvb.ch0{--tc:#37e0ff}.lvb.ch1{--tc:#ff6d5d}.lvb.ch2{--tc:#ffd97a}.lvb.ch3{--tc:#bfe6ff}.lvb.ch4{--tc:#63f7dd}
 .lvb:not(.lock){border-color:color-mix(in srgb,var(--tc) 55%,#1e3a4d)}
 .endcard{width:min(94vw,400px)}
+.cards{display:flex;flex-direction:column;gap:11px;width:min(92vw,420px)}
 .card{display:flex;align-items:center;gap:14px;background:linear-gradient(160deg,#0b1a28f0,#081019f0);border:1px solid var(--line);padding:13px 15px;cursor:pointer;transition:transform .15s,border-color .2s,box-shadow .2s;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
 .card:hover{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 10px 26px -10px rgba(55,224,255,.4)}
 .card:active{transform:scale(.98)}
@@ -205,7 +219,7 @@ body.fa #introLevel{letter-spacing:.05em}
 <div class="hud-score"><span id="score" class="display">0</span><span id="combo" class="display"></span><span id="weapChip">⚡۱</span>
 <span id="specChip" class="hidden"><i id="specIco">⚡</i><span class="sbar"><i id="specFill"></i></span></span></div>
 <div class="hud-mid"><span id="levelName"></span><div class="prog"><i id="progFill"></i></div>
-<div class="mid-chips"><span class="mchip" id="hudCoins">🪙 ۰</span><span class="mchip cy hidden" id="multChip">×۱</span></div></div>
+<div class="mid-chips"><span class="mchip" id="hudCoins">🪙 </span><span class="mchip cy hidden" id="multChip">×۱</span></div></div>
 <div class="hud-right"><span class="pips" id="pips"></span><button id="pauseBtn" aria-label="pause">❚❚</button></div>
 </div>
 <div id="bossBar"><span id="bossName" class="display"></span><div class="bbar"><i id="bossFill"></i></div></div>
@@ -353,6 +367,8 @@ today:'امروز',daily_t:'چالش روزانه',best_today:'بهترین ام
 mod_glass:'سپر: فقط ۱',mod_nobomb:'بدون بمب',mod_frenzy:'دشمنان ×۱.۴',mod_fortune:'سکه ×۲',mod_overdrive:'سلاح حداکثر',mod_storm:'آتش شدید',
 board_t:'جدول جهانی',board_week:'هفته',board_reset:'ریست',board_submit:'ثبت امتیاز من در تلگرام 🚀',
 board_you:'شما',daily_done:'در جدول جهانی ثبت شد ✓',global_saved:'🌍 ثبت جهانی · رتبه‌ی تو #',
+name_taken:'این نام قبلاً توسط خلبان دیگری رزرو شده — لطفاً یک نام یکتای دیگر انتخاب کن.',
+name_taken_tg:'نام تلگرامت قبلاً توسط بازیکن دیگری گرفته شده — یک نام یکتا برای خودت انتخاب کن.',
 err_title:'خطا در بارگذاری',err_txt:'کتابخانه PixiJS بارگذاری نشد. اتصال اینترنت را بررسی کن یا فایل‌ها را لوکال قرار بده.',err_btn:'تلاش دوباره'},
 en:{title:'GALAXY HUNTER',tag:'The final battle in the heart of the stars',sys:'WEAPON SYSTEMS ONLINE',start:'🚀 START MISSION',
 levels:'LEVELS',hangar:'HANGAR 🔧',best:'HIGH SCORE',coins:'COINS',sound:'SOUND',on:'ON',off:'OFF',lang_btn:'فارسی',
@@ -379,6 +395,8 @@ today:'TODAY',daily_t:'DAILY CHALLENGE',best_today:"TODAY'S BEST",d_bossrush:'�
 mod_glass:'SHIELD: 1',mod_nobomb:'NO BOMBS',mod_frenzy:'ENEMIES ×1.4',mod_fortune:'COINS ×2',mod_overdrive:'MAX WEAPON',mod_storm:'HEAVY FIRE',
 board_t:'GLOBAL BOARD',board_week:'WEEK',board_reset:'RESET',board_submit:'SUBMIT MY SCORE 🚀',
 board_you:'YOU',daily_done:'SAVED TO GLOBAL BOARD ✓',global_saved:'🌍 Global saved · rank #',
+name_taken:'This name is already reserved by another pilot — please pick a unique callsign.',
+name_taken_tg:'Your Telegram name is already taken by another player — choose a unique callsign.',
 err_title:'LOAD ERROR',err_txt:'PixiJS failed to load. Check your connection or bundle the libraries locally.',err_btn:'RETRY'}
 };
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
@@ -398,13 +416,6 @@ const maxShield=()=>3+upg.armor,startWeapon=()=>1+upg.weapon,startBombs=()=>2+up
 magnetRange=()=>[90,150,220][upg.magnet],satCount=()=>upg.sat;
 function cloudSave(){if(!tg||!tg.CloudStorage)return;
 try{tg.CloudStorage.setItem('gh2_save',JSON.stringify({coins,upg,best,unlocked,endUnlocked}),()=>{});}catch(e){}}
-/* ===== هویت بازیکن — تعریف زودهنگام (جلوگیری از ReferenceError در applyLang) ===== */
-let GH_UID=localStorage.getItem('gh_uid');
-if(!GH_UID){GH_UID='p_'+Math.random().toString(36).slice(2,10)+Date.now().toString(36);localStorage.setItem('gh_uid',GH_UID);}
-let GH_NAME=localStorage.getItem('gh_name');
-if(!GH_NAME){try{const _u0=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;GH_NAME=(_u0&&(_u0.first_name||'').trim())||'';}catch(e){}GH_NAME=GH_NAME||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);}
-let GH_GBEST=parseInt(localStorage.getItem('gh_gbest')||'0',10)||0;
-let GH_CHAT=null;try{GH_CHAT=(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.chat&&tg.initDataUnsafe.chat.id)||null;}catch(e){}
 /* ================= جدول محلی ================= */
 function strHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function weekKey(){const d=new Date(),j=new Date(d.getFullYear(),0,1);
@@ -442,11 +453,11 @@ const pool=['glass','nobomb','frenzy','fortune','overdrive','storm'];
 while(dailyMods.length<2){const m=pool[Math.floor(rnd()*pool.length)];if(!dailyMods.includes(m))dailyMods.push(m);}}
 buildDailyCfg(dayKey());
 function refreshDailyCard(){buildDailyCfg(dayKey());
-const box=$('dailyModChips');if(!box)return;box.innerHTML='';
+const box=$('dailyModChips');box.innerHTML='';
 for(const m of dailyMods){const s=document.createElement('span');s.className='mchip2';
 s.textContent=MOD_ICON[m]+' '+T('mod_'+m);box.appendChild(s);}
 const b=dailyBest[dayKey()]||0;
-const dt=$('dailyBestTxt');if(dt)dt.textContent=b?fmt(b):'—';}
+$('dailyBestTxt').textContent=b?fmt(b):'—';}
 function endDaily(){const d=dayKey();
 if(score>(dailyBest[d]||0)){dailyBest[d]=score;store.set('gh_daily',dailyBest);}
 submitScore(score,'daily');}
@@ -1294,7 +1305,7 @@ core.tint=0xff4d6d;core.width=core.height=46;core.y=4;
 const fl=new PIXI.Sprite(TEX.glow);fl.anchor.set(0.5);fl.blendMode='add';fl.alpha=0;
 fl.width=fl.height=boss.r*2.6;
 cont.addChild(hull,core,fl);
-if(bt===3&&TEX.bossRing){const rs=new PIXI.Sprite(TEX.bossRing);rs.anchor.set(0.5);
+if(bt===3){const rs=new PIXI.Sprite(TEX.bossRing);rs.anchor.set(0.5);
 rs.width=rs.height=boss.r*4.4;cont.addChild(rs);boss.ringSpr=rs;}
 boss.cont=cont;boss.hull=hull;boss.core=core;boss.fl=fl;
 bossL.addChild(cont);
@@ -1428,7 +1439,7 @@ if(canHurt){for(const e of enemies){if(e.dead)continue;
 if(Math.hypot(e.x-player.x,e.y-player.y)<e.r+pr){e.hp-=3;e.flash=0.1;
 if(e.hp<=0)killEnemy(e);hitPlayer();break;}}
 if(boss&&bossActive&&!boss.dying&&Math.hypot(boss.x-player.x,boss.y-player.y)<boss.r+pr)hitPlayer();}
-ebullets=ebullets.filter(b=>{if(b.dead||b.y>H+30||b.y<-30||b.x>-30&&b.x<W+30||b.x<-30||b.x>W+30){ebulL.removeChild(b.s);return false;}return true;});}
+ebullets=ebullets.filter(b=>{if(b.dead||b.y>H+30||b.y<-30||b.x<-30||b.x>W+30){ebulL.removeChild(b.s);return false;}return true;});}
 /* ================= جریان مراحل ================= */
 function clearEntities(){
 enemies.forEach(e=>enemiesL.removeChild(e.cont));enemies.length=0;
@@ -1560,7 +1571,7 @@ player.dead=false;pCont.visible=true;
 player.phoenixT=0;player.specterT=0;player.laserT=0;player.homingT=0;
 player.x=player.tx=W/2;player.y=player.ty=H-110;
 if(tg&&tg.BackButton)try{tg.BackButton.hide();}catch(e){}}
-function hideAllOv(){['menu','levelsOv','boardOv','hangarOv','pauseOv','overOv','clearOv','vicOv','settingsOv'].forEach(id=>{const el=$(id);if(el)el.classList.add('hidden');});}
+function hideAllOv(){['menu','levelsOv','boardOv','hangarOv','pauseOv','overOv','clearOv','vicOv','settingsOv'].forEach(id=>$(id).classList.add('hidden'));}
 function showOvAnim(id){gsap.fromTo('#'+id+' > *',{y:26,opacity:0},{y:0,opacity:1,stagger:0.06,duration:0.45,ease:'power3.out',overwrite:true});}
 function pauseGame(){if(state!=='playing')return;state='paused';SFX.click();
 hideAllOv();$('pauseOv').classList.remove('hidden');showOvAnim('pauseOv');}
@@ -1631,8 +1642,8 @@ $('levelName').textContent=dailyMode?('🎯 '+T('daily_t'))
 if(bossActive)$('bossName').textContent='☠ '+T('boss_names')[boss.type];
 $('bestVal').textContent=fmt(best);$('menuCoins').textContent=fmt(coins);
 refreshChips();refreshMbar();renderLevels();refreshDailyCard();
-const hOv=$('hangarOv');if(hOv&&!hOv.classList.contains('hidden'))renderHangar();
-const bOv=$('boardOv');if(bOv&&!bOv.classList.contains('hidden'))renderBoard();
+if(!$('hangarOv').classList.contains('hidden'))renderHangar();
+if(!$('boardOv').classList.contains('hidden'))renderBoard();
 store.set('gh_lang',lang);}
 function toggleMute(){muted=!muted;store.set('gh_muted',muted);
 if(master)master.gain.value=muted?0:0.9;refreshChips();if(!muted)SFX.click();}
@@ -1685,12 +1696,7 @@ missiles=missiles.filter(m=>{if(m.dead){bulL.removeChild(m.s);return false;}retu
 function updateGame(dt){levelTime+=dt;
 if(endless){endlessT+=dt;
 endlessWaveT-=dt;
-if(endlessWaveT<=0){const d=1+endlessT/40;const pool=['drone','drone','striker'];
-if(endlessT>20)pool.push('hunter');if(endlessT>45)pool.push('splitter','hunter');
-const type=pool[Math.floor(Math.random()*pool.length)];
-const n=Math.min(8,3+Math.floor(Math.random()*2+d*0.7));
-for(let i=0;i<n;i++)spawns.push({at:levelTime+i*0.45,type});
-endlessWaveT=Math.max(2.2,5-endlessT*0.03);}
+if(endlessWaveT<=0){spawnEndlessWave();endlessWaveT=Math.max(2.2,5-endlessT*0.03);}
 const th=Math.floor(endlessT/45)%5;
 if(th!==endlessTheme){endlessTheme=th;setTheme(th);
 if(!bossActive)Music.play('l'+(th+1));}
@@ -1736,6 +1742,12 @@ if(actx&&musFilter)musFilter.frequency.linearRampToValueAtTime(crit?500:18000,ac
 if(crit){heartT-=dt;if(heartT<=0){heartT=1;SFX.heartbeat();}}
 if(endless)$('progFill').style.width=(bossActive?100:Math.min(100,endlessT/nextBossAt*100))+'%';
 else $('progFill').style.width=(bossActive||levelDone?100:Math.round(spawnIdx/totalSpawns*100))+'%';}
+function spawnEndlessWave(){const d=1+endlessT/40;
+const pool=['drone','drone','striker'];
+if(endlessT>20)pool.push('hunter');if(endlessT>45)pool.push('splitter','hunter');
+const type=pool[Math.floor(Math.random()*pool.length)];
+const n=Math.min(8,3+Math.floor(Math.random()*2+d*0.7));
+for(let i=0;i<n;i++)spawns.push({at:levelTime+i*0.45,type});}
 function applyPower(p){const cols={gem:0xffd97a,w:0x37e0ff,armor:0x3ef0a5,shield:0x7ad7ff,bomb:0xff9a3d,
 laser:0x9ff1ff,homing:0xff9a3d,phoenix:0xffd97a,specter:0xbfeef7};
 const labels={gem:'p_gem',w:'p_w',armor:'p_armor',shield:'p_shield',bomb:'p_bomb',
@@ -1889,7 +1901,7 @@ $('sLang').addEventListener('click',toggleLang);
 $('pLang').addEventListener('click',toggleLang);
 $('sSound').addEventListener('click',()=>{unlockAudio();toggleMute();});
 $('pSound').addEventListener('click',toggleMute);
-$('sName').addEventListener('click',()=>{SFX.click();if(window.runOnboard)runOnboard(true);});
+$('sName').addEventListener('click',()=>{SFX.click();runOnboard(true);});
 $('pauseBtn').addEventListener('click',pauseGame);
 $('resumeBtn').addEventListener('click',resumeGame);
 $('restartBtn').addEventListener('click',()=>{SFX.click();startLevel(levelIndex);});
@@ -1905,21 +1917,30 @@ $('shareBtn1').addEventListener('click',shareScore);
 $('shareBtn2').addEventListener('click',shareScore);
 $('submitBtn').addEventListener('click',()=>{if(tg&&tg.sendData){
 try{tg.sendData(JSON.stringify({app:'galaxy_hunter',type:'score',score:score,level:levelIndex+1,coins:runCoins}));}catch(e){}}});
+/* ================= راه‌اندازی اولیه ================= */
+applyLang();
 /* ═══════════════ لیدربورد جهانی (Supabase) ═══════════════ */
-/* GH_UID / GH_NAME / GH_GBEST / GH_CHAT در بالای اسکریپت تعریف شده‌اند */
 const SUPABASE_URL='https://femzookrzspnqymhuxcf.supabase.co';
 const SUPABASE_KEY='sb_publishable_okmNeoF7D53fInXjB1q7lg_eEOTGhL2';
+let GH_UID=localStorage.getItem('gh_uid');
+if(!GH_UID){GH_UID='p_'+Math.random().toString(36).slice(2,10)+Date.now().toString(36);localStorage.setItem('gh_uid',GH_UID);}
+let GH_NAME=localStorage.getItem('gh_name');
+if(!GH_NAME){try{const _u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;GH_NAME=(_u&&(_u.first_name||'').trim())||'';}catch(e){}GH_NAME=GH_NAME||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);}
+let GH_GBEST=parseInt(localStorage.getItem('gh_gbest')||'0',10)||0;
+let GH_CHAT=null;try{GH_CHAT=(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.chat&&tg.initDataUnsafe.chat.id)||null;}catch(e){}
 const GH_OK=SUPABASE_URL.indexOf('abcdefgh')<0&&SUPABASE_KEY.length>12;
 const GH_H={'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'};
+const GH_H_POST={'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'};
 const GH_L=(fa,en)=>lang==='fa'?fa:en;
 function GH_esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+/* --- پینگ زنده: سریع‌ترین مسیرِ در دسترس (CDN بازی + سرور)، کمینه‌ی چند نمونه --- */
 let pingMs=-3,pingOn=false,pingTimer=0;
-async function measurePing(){if(!GH_OK){pingMs=-2;paintPing();return;}const t0=performance.now();
-try{const r=await fetch(SUPABASE_URL+'/rest/v1/leaderboard?select=user_id&limit=1',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});if(!r.ok)throw 0;await r.text();pingMs=Math.round(performance.now()-t0);}catch(e){pingMs=-1;}paintPing();}
-function paintPing(){const el=$('mPing');if(!el)return;const b=el.querySelector('b');if(!b)return;
-if(pingMs<0){el.className='ping bad';b.textContent=pingMs===-2?'—':'✕';return;}
-el.className='ping '+(pingMs<120?'good':pingMs<260?'mid':'bad');b.textContent=fmt(pingMs);}
-function setPingActive(on){pingOn=on;clearInterval(pingTimer);if(on){measurePing();pingTimer=setInterval(measurePing,8000);}}
+const PING_TARGETS=['https://cdn.jsdelivr.net/npm/pixi.js@8/package.json'];
+async function pingHost(url){const t0=performance.now();try{await fetch(url,{method:'GET',mode:'no-cors',cache:'no-store'});const ms=Math.round(performance.now()-t0);return ms<1?1:ms;}catch(e){return 1e9;}}
+async function measurePing(){if(!pingOn)return;const samples=await Promise.all([pingHost(PING_TARGETS[0]),pingHost(PING_TARGETS[0])]);const ok=samples.filter(v=>v<1e8);pingMs=ok.length?Math.min(...ok):-1;paintPing();}
+function paintPing(){const el=$('mPing');if(!el)return;const b=el.querySelector('b');if(!b)return;if(pingMs<0){el.className='ping bad';b.textContent='✕';return;}el.className='ping '+(pingMs<150?'good':pingMs<300?'mid':'bad');b.textContent=fmt(pingMs);}
+function setPingActive(on){pingOn=on;clearInterval(pingTimer);if(on){measurePing();pingTimer=setInterval(measurePing,6000);}}
+/* --- رتبه‌ی جهانی --- */
 async function fetchMyRank(){const el=$('mRank');if(!el)return;el.textContent='…';
 if(!GH_OK||GH_GBEST<=0){setRank(null);return;}const data=await GH_fetch();if(!data){setRank(null);return;}
 let rows=data.slice();if(!rows.find(r=>r.user_id===GH_UID))rows.push({user_id:GH_UID,score:GH_GBEST});
@@ -1927,12 +1948,21 @@ rows.sort((a,b)=>b.score-a.score);const i=rows.findIndex(r=>r.user_id===GH_UID);
 function setRank(r,total){const el=$('mRank');if(!el)return;
 if(r)el.textContent=(lang==='fa'?'رتبه‌ی جهانی #':'Global #')+fmt(r)+(total?' / '+fmt(total):'');
 else el.textContent=lang==='fa'?'هنوز بدون رتبه':'No rank yet';}
+/* --- نوار خلبان --- */
 function refreshMbar(){const n=(typeof GH_NAME!=='undefined'&&GH_NAME)?GH_NAME:(lang==='fa'?'خلبان':'Pilot');
 const el=$('mName');if(el)el.textContent=n;const av=$('mAv');if(av)av.textContent=(n.trim()[0]||'✦');}
+/* --- toast --- */
 let _toastT=0;
 function toast(msg,col){const el=$('toast');if(!el)return;el.textContent=msg;el.style.setProperty('--tc',col||'#3ef0a5');el.classList.remove('show');void el.offsetWidth;el.classList.add('show');clearTimeout(_toastT);_toastT=setTimeout(()=>el.classList.remove('show'),3400);}
+/* --- اعلام به گروه --- */
 function announceToGroup(name,sc,rank){if(!(tg&&tg.sendData))return;
 try{tg.sendData(JSON.stringify({app:'galaxy_hunter',kind:'announce',name:name,score:sc,rank:rank||0,chat:GH_CHAT,lang:lang}));}catch(e){}}
+/* --- رجیستریِ نام‌های یکتا (جلوگیری از نامِ تکراری، بدون توجه به بزرگ/کوچک) --- */
+function normName(s){return String(s||'').toLowerCase().replace(/[\s‌‍]+/g,' ').trim();}
+async function _selName(norm){try{const r=await fetch(SUPABASE_URL+'/rest/v1/usernames?key=eq.'+encodeURIComponent(norm)+'&select=user_id,name',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+async function isNameFreeForMe(name){const norm=normName(name);if(!norm||!GH_OK)return 'unknown';const rows=await _selName(norm);if(rows===null)return 'unknown';if(!rows.length)return 'free';return rows[0].user_id===GH_UID?'mine':'taken';}
+async function tryClaimName(name){const norm=normName(name);if(!norm)return{ok:false,reason:'empty'};if(!GH_OK)return{ok:true,norm};const rows=await _selName(norm);if(rows===null)return{ok:true,norm};if(rows.length){if(rows[0].user_id===GH_UID)return{ok:true,norm};return{ok:false,reason:'taken'};}try{const ins=await fetch(SUPABASE_URL+'/rest/v1/usernames',{method:'POST',headers:GH_H_POST,body:JSON.stringify({key:norm,name:String(name).trim(),user_id:GH_UID})});if(ins.ok||ins.status===201)return{ok:true,norm};if(ins.status===409)return{ok:false,reason:'taken'};return{ok:true,norm};}catch(e){return{ok:true,norm};}}
+/* --- استایل زنده‌ی جدول جهانی --- */
 (function(){const s=document.createElement('style');s.textContent=`
 .g-podium{display:flex;align-items:flex-end;gap:10px;justify-content:center;width:min(94vw,420px)}
 .g-pl{flex:1;text-align:center;padding:14px 8px 12px;background:linear-gradient(160deg,#0c1c2af0,#081019f0);border:1px solid var(--line);display:flex;flex-direction:column;gap:5px;clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px);transition:transform .18s}
@@ -1984,7 +2014,7 @@ function GH_shell(){const ov=$('boardOv');
 ov.innerHTML='<div class="topbar"><button class="chip" id="bdBack2">◀ '+GH_L('بازگشت','BACK')+'</button><span class="chip"><span class="g-live">'+GH_L('زنده','LIVE')+'</span></span><button class="chip" id="bdRefresh">↻</button></div><div class="h-title display">🏆 '+GH_L('جدول جهانی','GLOBAL BOARD')+'</div><div class="g-podium" id="gPodium"></div><div class="g-list" id="gList"></div><div class="g-foot"><span>'+GH_L('نام تو:','Name:')+'</span><input id="gName" maxlength="14" value="'+GH_esc(GH_NAME)+'"><span class="g-mybest">'+GH_L('بهترین:','Best:')+' <b id="gMyBest">'+fmt(GH_GBEST)+'</b></span></div>';
 $('bdBack2').onclick=()=>{SFX.click();showMenu();};
 $('bdRefresh').onclick=()=>{SFX.click();renderBoard();};
-$('gName').onchange=function(){GH_NAME=this.value.trim()||(lang==='fa'?'خلبان':'Pilot');localStorage.setItem('gh_name',GH_NAME);refreshMbar();};}
+$('gName').onchange=function(){const v=this.value.trim();if(!v)return;GH_NAME=v;localStorage.setItem('gh_name',GH_NAME);refreshMbar();tryClaimName(v);};}
 async function renderBoard(){const ov=$('boardOv');
 if(!ov.querySelector('#gList'))GH_shell();
 const pod=$('gPodium'),list=$('gList');
@@ -2005,26 +2035,26 @@ d.innerHTML='<span class="g-rk display">'+fmt(i+4)+'</span><span class="g-nm">'+
 if(rows.length===0)list.innerHTML='<div class="g-empty">'+GH_L('هنوز کسی ثبت نکرده — اولین نفر باش!','No scores yet — be the first!')+'</div>';
 const mb=$('gMyBest');if(mb)mb.textContent=fmt(GH_GBEST);
 if(window.gsap){gsap.fromTo('.g-pl',{y:26,opacity:0},{y:0,opacity:1,stagger:0.09,duration:0.42,ease:'back.out(2)'});gsap.fromTo('.g-row',{x:-20,opacity:0},{x:0,opacity:1,stagger:0.04,duration:0.32,ease:'power2.out'});}}
-/* ═══════════════ صفحه‌ی خوش‌آمد / انتخاب اسم ═══════════════ */
+/* ═══════════════ صفحه‌ی خوش‌آمد / انتخاب اسم (با چکِ نامِ یکتا) ═══════════════ */
 const OB_T={
 fa:{welcome:'به کهکشان خوش آمدی',kicker:'ثبت خلبان',
 id_found:'اسم تلگرامت را پیدا کردیم',id_none:'اسم تلگرام پیدا نشد — یکی بنویس',
 current:'اسم فعلی تو',with_this:'با این اسم در جدول جهانی رقابت می‌کنی:',
 keep:'✓ همین اسم تلگرامم',custom:'✎ اسم دلخواه می‌خواهم',
-custom_q:'اسمی که دوست داری بنویس',ph:'مثلاً: کاپیتان رعد',
+custom_q:'یک نام یکتا برای خودت بنویس',
 confirm:'تأیید و ورود ▶',back:'◀ بازگشت',note:'بعداً از تنظیمات هم می‌توانی عوضش کنی',
-err:'اسم نمی‌تواند خالی باشد',fallback:'خلبان',edit:'✎ اسم'},
+err:'نام نمی‌تواند خالی باشد',fallback:'خلبان',edit:'✎ اسم'},
 en:{welcome:'Welcome to the Galaxy',kicker:'PILOT REGISTRATION',
 id_found:'We found your Telegram name',id_none:'No Telegram name found — type one',
 current:'Your current name',with_this:'You will compete on the global board as:',
 keep:'✓ Keep my Telegram name',custom:'✎ I want a custom name',
-custom_q:'Type the name you like',ph:'e.g. Captain Raid',
+custom_q:'Type a unique callsign for yourself',
 confirm:'CONFIRM & ENTER ▶',back:'◀ BACK',note:'You can change it later from settings',
 err:'Name cannot be empty',fallback:'Pilot',edit:'✎ NAME'}
 };
 const obT=k=>(OB_T[lang]||OB_T.fa)[k];
-let obTgFirst='';
-try{const _ou=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;obTgFirst=(_ou&&(_ou.first_name||'').trim())||'';}catch(e){}
+function readTgName(){try{const u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;if(!u)return '';const f=(u.first_name||'').trim();if(f)return f;const un=(u.username||'').trim();if(un)return '@'+un;const l=(u.last_name||'').trim();return l||'';}catch(e){return '';}}
+let obTgFirst=readTgName();
 function obSan(s){return String(s||'').replace(/[\u0000-\u001f\u200b-\u200d\ufeff]/g,'').trim().slice(0,14);}
 function obSetName(n){n=obSan(n)||obT('fallback');
 try{localStorage.setItem('gh_name',n);localStorage.setItem('gh_named','1');}catch(e){}
@@ -2125,15 +2155,38 @@ skyX.globalAlpha=1;}
 function startSky(){skyCv=_$('obSky');skyX=skyCv.getContext('2d');sizeSky();obAlive=true;cancelAnimationFrame(raf);raf=requestAnimationFrame(skyLoop);}
 function stopSky(){obAlive=false;cancelAnimationFrame(raf);}
 addEventListener('resize',()=>{if(obAlive&&skyCv)sizeSky();});
+function showClaimError(reason){
+const msg=reason==='taken'?T('name_taken'):T('err');
+const wrap=_$('obInputWrap');
+if(wrap&&!wrap.classList.contains('hidden')){
+const inp=_$('obInput');inp.classList.add('bad');
+_$('obErr').textContent=msg;_$('obErr').classList.remove('hidden');
+try{hapN('error');}catch(e){}setTimeout(()=>inp.classList.remove('bad'),420);
+}else{
+showInput('');
+_$('obErr').textContent=reason==='taken'?T('name_taken'):msg;
+_$('obErr').classList.remove('hidden');
+try{hapN('error');}catch(e){}
+}}
+async function attemptFinish(name,celebrate){
+const res=await tryClaimName(name);
+if(!res.ok){showClaimError(res.reason);return;}
+doFinish(name,celebrate);
+}
 function showIdentity(name,label,opts){
-_$('obIdBox').classList.remove('hidden');_$('obInputWrap').classList.add('hidden');
+_$('obInputWrap').classList.add('hidden');
+_$('obIdBox').classList.remove('hidden');
 _$('obIdLbl').textContent=label;_$('obIdName').textContent=name;
-_$('obDesc').textContent=obT('with_this');
 const a=_$('obActions');a.innerHTML='';a.classList.remove('hidden');
-if(opts.tg){const b=document.createElement('button');b.className='ob-btn primary';b.textContent=obT('keep');
-b.onclick=()=>finish(opts.tg,false);a.appendChild(b);}
-const c=document.createElement('button');c.className='ob-btn'+(opts.tg?' ghost':' primary');
-c.textContent=obT('custom');c.onclick=()=>showInput(opts.tg?name:'');a.appendChild(c);
+if(opts&&opts.tg){
+_$('obDesc').textContent=obT('with_this');
+const b=document.createElement('button');b.className='ob-btn primary';b.textContent=obT('keep');
+b.onclick=()=>attemptFinish(opts.tg,false);a.appendChild(b);
+}else{
+_$('obDesc').textContent=(opts&&opts.takenNote)?opts.takenNote:obT('with_this');
+}
+const c=document.createElement('button');c.className='ob-btn'+((opts&&opts.tg)?' ghost':' primary');
+c.textContent=obT('custom');c.onclick=()=>showInput((opts&&opts.tg)?name:'');a.appendChild(c);
 }
 function showInput(prefill){
 _$('obIdBox').classList.add('hidden');_$('obActions').classList.add('hidden');
@@ -2143,14 +2196,13 @@ const inp=_$('obInput');inp.value=prefill||'';_$('obErr').classList.add('hidden'
 _$('obBack').textContent=obT('back');_$('obConfirm').textContent=obT('confirm');
 setTimeout(()=>{inp.focus();try{hap('light');}catch(e){}},60);
 _$('obConfirm').onclick=()=>{const v=obSan(inp.value);
-if(!v){inp.classList.add('bad');_$('obErr').textContent=obT('err');_$('obErr').classList.remove('hidden');
-try{hapN('error');}catch(e){}setTimeout(()=>inp.classList.remove('bad'),420);return;}
-finish(v,true);};
-_$('obBack').onclick=()=>{const cur=obSan(localStorage.getItem('gh_name'))||obTgFirst||obT('fallback');
-showIdentity(cur,obT('current'),{tg:obTgFirst||null});};
+if(!v){_$('obErr').textContent=obT('err');_$('obErr').classList.remove('hidden');inp.classList.add('bad');try{hapN('error');}catch(e){}setTimeout(()=>inp.classList.remove('bad'),420);return;}
+attemptFinish(v,true);};
+_$('obBack').onclick=()=>{const cur=obSan(localStorage.getItem('gh_name'))||readTgName()||obT('fallback');
+showIdentity(cur,obT('current'),{tg:readTgName()||null});};
 inp.onkeydown=e=>{if(e.key==='Enter')_$('obConfirm').click();};
 }
-function finish(name,celebrate){try{unlockAudio();}catch(e){}
+function doFinish(name,celebrate){try{unlockAudio();}catch(e){}
 const n=obSetName(name);try{SFX.power();}catch(e){}try{hap('medium');}catch(e){}
 refreshMbar();
 if(celebrate&&typeof confetti==='function'){try{confetti({particleCount:70,spread:70,origin:{y:.45},
@@ -2158,19 +2210,27 @@ colors:['#ffb43a','#37e0ff','#3ef0a5','#ff4d6d']});}catch(e){}}
 ov.classList.add('out');stopSky();
 setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('out');},560);
 }
-window.runOnboard=function(edit){
+window.runOnboard=async function(edit){
 try{unlockAudio();}catch(e){}
+obTgFirst=readTgName();
 _$('obKicker').textContent=obT('kicker');_$('obTitle').textContent=obT('welcome');
 _$('obNote').textContent=obT('note');
 const card=_$('obCard');card.style.animation='none';void card.offsetWidth;card.style.animation='';
 ov.classList.remove('hidden','out');startSky();
 const cur=obSan(localStorage.getItem('gh_name'));
-if(edit){showIdentity(cur||obTgFirst||obT('fallback'),obT('current'),{tg:obTgFirst||null});}
-else if(obTgFirst){showIdentity(obTgFirst,obT('id_found'),{tg:obTgFirst});}
-else{_$('obIdBox').classList.remove('hidden');_$('obIdLbl').textContent=obT('id_none');
-_$('obIdName').textContent='—';showInput('');}
+if(edit){
+showIdentity(cur||obTgFirst||obT('fallback'),obT('current'),{tg:obTgFirst||null});
+}else if(obTgFirst){
+const st2=await isNameFreeForMe(obTgFirst);
+if(st2==='taken'){showIdentity(obTgFirst,obT('id_found'),{tg:null,takenNote:obT('name_taken_tg')});}
+else{showIdentity(obTgFirst,obT('id_found'),{tg:obTgFirst});}
+}else{
+_$('obIdBox').classList.remove('hidden');_$('obIdLbl').textContent=obT('id_none');
+_$('obIdName').textContent='—';showInput('');
+}
 };
 })();
+/* ═══════════════ پایان خوش‌آمد ═══════════════ */
 /* ═══════════════ بوت ═══════════════ */
 (async function boot(){
 if(!window.PIXI){$('errOv').classList.remove('hidden');return;}
@@ -2196,9 +2256,8 @@ makeStars();setTheme(0);
 buildPlayer();
 bindInput();
 player.x=player.tx=W/2;player.y=player.ty=H-110;
-applyLang();
 showMenu();
-if(!store.get('gh_named',false)&&window.runOnboard)runOnboard();
+if(!store.get('gh_named',false))runOnboard();
 app.ticker.add(tk=>frame(Math.min(0.033,tk.deltaMS/1000)));
 }catch(err){console.error(err);$('errOv').classList.remove('hidden');}
 })();
